@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->string('reports_count');
+            $table->string('reports_count')->nullable();
             $table->boolean('paid')->default(0);
             $table->boolean('archived')->default(0);
             $table->string('path_img')->nullable();

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Post extends Model
 {
+    protected $guarded = []; 
+
     public function reports(): HasMany{
         return $this->hasMany(Report::class);
     }
