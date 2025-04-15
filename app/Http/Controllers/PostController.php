@@ -74,15 +74,14 @@ class PostController extends Controller
     }
 
     public function updateCount(Request $request) {
+
         $request->validate([
-            'id' => ['required']
+            'id' => ['required', 'exists:posts,id'] // Добавляем проверку существования поста
         ]);
-
-        $count = $request->reports_count; 
-
-        Post::where('id', $request->id)->update([
-            'reports_count' => $count+1,
-        ]);
+    
+        // Находим пост и атомарно увеличиваем счетчик
+        Post::where('id', $request->id)->increment('reports_count');
+        
         return redirect()->back();
     }
 }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->boolean('approved')->nullable();
+            $table->string('message')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('user_id')->constrained();

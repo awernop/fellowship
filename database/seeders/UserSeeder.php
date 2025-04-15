@@ -23,6 +23,13 @@ class UserSeeder extends Seeder
                     'role'=>'admin',
                     'password'=> Hash::make('su0101666')
                 ],
+                [
+                    'login'=>'example',
+                    'username'=>'Example User',
+                    'email'=>'example@example.com',
+                    'role'=>null,
+                    'password'=> Hash::make('12345678')
+                ],
             ]
         );
     }

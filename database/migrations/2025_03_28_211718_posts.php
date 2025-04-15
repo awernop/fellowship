@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('reports_count')->nullable();
             $table->boolean('paid')->default(0);
             $table->boolean('archived')->default(0);
