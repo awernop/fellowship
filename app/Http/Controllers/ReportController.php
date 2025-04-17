@@ -38,6 +38,7 @@ class ReportController extends Controller
     public function store(Request $request): RedirectResponse {
         $request->validate([
             'message'=>['nullable', 'string', 'max:2000'],
+            'post_id' => 'required|exists:posts,id',
         ]);
 
         Report::create([

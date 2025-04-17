@@ -42,21 +42,26 @@ class PostController extends Controller
             'paid'=>['boolean'],
             'archived'=>['boolean'],
             'path_img'=>['image|mimes:png,jpg,jpeg,gif|max:1000'],
+            'tags' => 'array',
+            'tags.*' => 'exists:tags,id'
         ]);
 
         /*$imageName = time() . '.' . $request['path_img']->extension();
         $request['path_img']->move(public_path('images'), $imageName);*/
 
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'description'=>$request->description,
-            'reports_count'=>null,
+            'reports_count'=>0,
             'paid'=>$request->paid,
             'archived'=>false,
             'path_img' => null,
             "user_id" => Auth::user()->id,
-            "tag_id" => 1,
         ]);
+
+        if ($request->has('tags')) {
+            $post->tags()->attach($request->tags);
+        }
 
         return redirect()->route('dashboard');
     }
@@ -73,15 +78,10 @@ class PostController extends Controller
         return redirect()->back();
     }
 
-    public function updateCount(Request $request) {
+    public function updateCount(Post $post) {
 
-        $request->validate([
-            'id' => ['required', 'exists:posts,id'] // Добавляем проверку существования поста
-        ]);
+        $post->increment('reports_count');
     
-        // Находим пост и атомарно увеличиваем счетчик
-        Post::where('id', $request->id)->increment('reports_count');
-        
         return redirect()->back();
     }
 }

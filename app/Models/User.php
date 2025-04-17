@@ -26,6 +26,11 @@ class User extends Authenticatable
     public function reports(): HasMany{
         return $this->hasMany(Report::class);
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
     
     /**
      * The attributes that are mass assignable.

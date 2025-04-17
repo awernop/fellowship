@@ -3,16 +3,25 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 
 export default function Register() {
+    const { tags } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         login: '',
         username: '',
         email: '',
         password: '',
         password_confirmation: '',
+        tags: [],
     });
+
+    const toggleTag = (tagId) => {
+        setData('tags', data.tags.includes(tagId)
+            ? data.tags.filter(id => id !== tagId)
+            : [...data.tags, tagId]
+        );
+    };
 
     const submit = (e) => {
         e.preventDefault();
@@ -20,6 +29,10 @@ export default function Register() {
         post(route('register'), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
+    };
+
+    const validate = () => {
+        return data.tags.length >= 3;
     };
 
     return (
@@ -119,6 +132,28 @@ export default function Register() {
                         className="mt-2"
                     />
                 </div>
+
+                <div className="mb-6">
+                <label className="block text-gray-700 mb-3">Выберите интересующие темы:</label>
+                <div className="flex flex-wrap gap-2">
+                    {tags.map((tag) => (
+                        <button
+                            key={tag.id}
+                            type="button"
+                            onClick={() => toggleTag(tag.id)}
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
+                                ${data.tags.includes(tag.id)
+                                    ? 'bg-indigo-600 text-white'
+                                    : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                                }`}
+                        >
+                            {tag.title}
+                        </button>
+                    ))}
+                </div>
+                {errors.tags && <span className="text-red-500 text-sm">{errors.tags}</span>}
+                
+            </div>
 
                 <div className="mt-4 flex items-center justify-end">
                     <Link

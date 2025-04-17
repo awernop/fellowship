@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/store', [PostController::class, 'store'])->name('posts.store');
     Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts/{id}/increment-reports', [PostController::class, 'updateCount'])->name('posts.reports.increment');
 
     Route::post('/report', [ReportController::class, 'store'])->name('reports.store');
     Route::get('/report/create', [ReportController::class, 'create'])->name('reports.create');
