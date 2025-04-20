@@ -24,8 +24,8 @@ class UserSeeder extends Seeder
                     'password'=> Hash::make('su0101666')
                 ],
                 [
-                    'login'=>'example',
-                    'username'=>'Example User',
+                    'login'=>'user1',
+                    'username'=>'User#1',
                     'email'=>'example@example.com',
                     'role'=>null,
                     'password'=> Hash::make('12345678')

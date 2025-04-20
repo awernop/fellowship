@@ -11,6 +11,7 @@ export default function Create() {
     const { data, setData, post, processing, errors, reset } = useForm({
             title: '',
             description: '',
+            preview: '',
             paid: false,
             /*path_img: '',*/
             tags: [],
@@ -75,6 +76,23 @@ export default function Create() {
                     />
 
                     <InputError message={errors.description} className="mt-2" />
+                </div>
+
+                <div className="mt-4">
+                    <InputLabel htmlFor="preview" value="Превью" />
+
+                    <TextInput
+                        id="preview"
+                        name="preview"
+                        value={data.preview}
+                        className="mt-1 block w-full"
+                        autoComplete="preview"
+                        isFocused={true}
+                        onChange={(e) => setData('preview', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.preview} className="mt-2" />
                 </div>
 
                 <div className="mt-4">

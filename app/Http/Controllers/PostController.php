@@ -38,12 +38,14 @@ class PostController extends Controller
         $request->validate([
             'title'=>['required', 'string', 'max:255'],
             'description'=>['required', 'string', 'max:2000'],
+            'preview'=>['required', 'string', 'max:1000'],
             'reports_count'=>['int'],
             'paid'=>['boolean'],
             'archived'=>['boolean'],
             'path_img'=>['image|mimes:png,jpg,jpeg,gif|max:1000'],
             'tags' => 'array',
-            'tags.*' => 'exists:tags,id'
+            'tags.*' => 'exists:tags,id',
+            //'post_id' => 'required|integer|exists:posts,id'
         ]);
 
         /*$imageName = time() . '.' . $request['path_img']->extension();
@@ -52,6 +54,7 @@ class PostController extends Controller
         $post = Post::create([
             'title' => $request->title,
             'description'=>$request->description,
+            'preview'=>$request->preview,
             'reports_count'=>0,
             'paid'=>$request->paid,
             'archived'=>false,
@@ -66,16 +69,13 @@ class PostController extends Controller
         return redirect()->route('dashboard');
     }
 
-    public function update(Request $request) {
-        $request->validate([
-            'archived' => ['required'],
-            'id' => ['required']
-        ]);
+    public function updateArchive(Post $post) {
 
-        Post::where('id', $request->id)->update([
+        $post->update([
             'archived' => true,
         ]);
         return redirect()->back();
+        
     }
 
     public function updateCount(Post $post) {

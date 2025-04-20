@@ -1,18 +1,17 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import React, { useState } from 'react';
-import { Head, useForm, usePage, router } from '@inertiajs/react';
-import ModalReport from '@/Components/ModalReport';
+import { Head, usePage, router } from '@inertiajs/react';
 import ModalPost from '@/Components/ModalPost';
 
-export default function Dashboard({ posts }) {
+export default function Archive({ posts }) {
     const [activePost, setActivePost] = useState(null);
     const [modalType, setModalType] = useState(null); 
 
-    const Archive = (e, postId) => {
+    const UnArchive = (e, postId) => {
         e.preventDefault();
         router.post(route('posts.updateArchive', { post: postId }), {
             preserveScroll: true,
-            onSuccess: () => console.log('Post archived successfully'),
+            onSuccess: () => console.log('Post unarchived successfully'),
         });
     }
 

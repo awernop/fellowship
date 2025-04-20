@@ -31,6 +31,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Tag::class);
     }
+
     
     /**
      * The attributes that are mass assignable.
