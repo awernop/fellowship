@@ -21,6 +21,15 @@ class PostController extends Controller
         ]);
     }
 
+    public function archivedIndex()
+    {
+        $posts=Post::where('user_id', Auth::user()->id)->get();
+
+        return Inertia::render('Archive', [
+            'posts' => $posts
+        ]);
+    }
+
     public function create()
     {
         $posts=Post::all();
@@ -42,14 +51,20 @@ class PostController extends Controller
             'reports_count'=>['int'],
             'paid'=>['boolean'],
             'archived'=>['boolean'],
-            'path_img'=>['image|mimes:png,jpg,jpeg,gif|max:1000'],
+            'path_img'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tags' => 'array',
             'tags.*' => 'exists:tags,id',
             //'post_id' => 'required|integer|exists:posts,id'
         ]);
 
-        /*$imageName = time() . '.' . $request['path_img']->extension();
-        $request['path_img']->move(public_path('images'), $imageName);*/
+        $imageName = null;
+    
+        // Обрабатываем изображение только если оно было загружено
+        if ($request->hasFile('path_img')) {
+            $imageName = time() . '.' . $request->file('path_img')->extension();
+            $request->file('path_img')->move(public_path('images'), $imageName);
+        }
+    
 
         $post = Post::create([
             'title' => $request->title,
@@ -58,7 +73,7 @@ class PostController extends Controller
             'reports_count'=>0,
             'paid'=>$request->paid,
             'archived'=>false,
-            'path_img' => null,
+            'path_img' => $imageName,
             "user_id" => Auth::user()->id,
         ]);
 
@@ -78,10 +93,30 @@ class PostController extends Controller
         
     }
 
+    public function updateUnarchive(Post $post) {
+
+        $post->update([
+            'archived' => false,
+        ]);
+        return redirect()->back();
+        
+    }
+
     public function updateCount(Post $post) {
 
         $post->increment('reports_count');
     
         return redirect()->back();
+    }
+
+    public function destroy(Post $post){
+        if(auth()->id() !== $post->user_id){
+            abort(403);
+        }
+
+        $post->delete();
+
+        return redirect()->route('dashboard')
+            ->with('success', 'Пост удален');
     }
 }

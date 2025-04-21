@@ -16,6 +16,12 @@ export default function ModalPost({ post, onClose }) {
                       &times;
                   </button>
               </div>
+              {post?.path_img && (
+                                        <img
+                                            src={`/images/${post.path_img}`}
+                                            alt="Work image"
+                                        />
+                                    )}
 
               <div className="mb-3">
                   <h3 className="font-semibold">Превью:</h3>

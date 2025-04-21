@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import { Head, useForm, usePage, router } from '@inertiajs/react';
 import ModalReport from '@/Components/ModalReport';
 import ModalPost from '@/Components/ModalPost';
+import DeletePostButton from '@/Components/DeletePostButton';
 
 export default function Dashboard({ posts }) {
     const [activePost, setActivePost] = useState(null);
-    const [modalType, setModalType] = useState(null); 
+    const [modalType, setModalType] = useState(null);
 
     const Archive = (e, postId) => {
         e.preventDefault();
@@ -45,6 +46,12 @@ export default function Dashboard({ posts }) {
                                     className="cursor-pointer"
                                     onClick={() => handlePostClick(item, 'info')}
                                 >
+                                    {item?.path_img && (
+                                        <img
+                                            src={`/images/${item.path_img}`}
+                                            alt="Work image"
+                                            className="w-[100px]"                                        />
+                                    )}
                                     <p>{item.title}</p>
                                     <p>{item.description}</p>
                                     <p>Кол-во откликов: {item.reports_count || 0}</p>
@@ -53,12 +60,15 @@ export default function Dashboard({ posts }) {
                                 {/* Кнопки действий */}
                                 <div className="mt-3">
                                     {item.user_id === usePage().props.auth.user.id ? (
-                                        <button
+                                        <div>
+                                            <button
                                             className="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-350"
                                             onClick={(e) => Archive(e, item.id)}
                                         >
                                             ЗААРХИВИРОВАТЬ
                                         </button>
+                                        <DeletePostButton post={item} />
+                                        </div>
                                     ) : (
                                         <button
                                             className="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-350"

@@ -26,6 +26,10 @@ Route::get('/dashboard', [PostController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('/archive', [PostController::class, 'archivedIndex'])
+    ->middleware(['auth', 'verified'])
+    ->name('archive');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -35,6 +39,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/posts/{id}/increment-reports', [PostController::class, 'updateCount'])->name('posts.reports.increment');
     Route::post('/posts/{post}/archive', [PostController::class, 'updateArchive'])->name('posts.updateArchive');
+    Route::post('/posts/{post}/unarchive', [PostController::class, 'updateUnarchive'])->name('posts.updateUnarchive');
+    Route::delete('/posts/{post}', [PostController::class, 'destroy'])
+        ->name('posts.destroy')
+        ->middleware('auth');
 
     Route::post('/report', [ReportController::class, 'store'])->name('reports.store');
     Route::get('/report/create', [ReportController::class, 'create'])->name('reports.create');
