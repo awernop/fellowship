@@ -1,0 +1,23 @@
+/*@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}*/
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('../fonts/Manrope-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*@font-face {
+  font-family: 'NTSomic';
+  src: url('../fonts/NTSomic-Medium.ttf') format('truetype');
+  font-weight: 100 900; 
+  font-style: normal;
+  font-display: swap;
+}*/

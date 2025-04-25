@@ -12,6 +12,7 @@ use Inertia\Inertia;
 
 class PostController extends Controller
 {
+    //выгрузка всех постов
     public function index()
     {
         $posts=Post::all();
@@ -21,6 +22,7 @@ class PostController extends Controller
         ]);
     }
 
+    //выгрузка заархивированных постов
     public function archivedIndex()
     {
         $posts=Post::where('user_id', Auth::user()->id)->get();
@@ -30,6 +32,7 @@ class PostController extends Controller
         ]);
     }
 
+    //создание поста
     public function create()
     {
         $posts=Post::all();
@@ -59,7 +62,6 @@ class PostController extends Controller
 
         $imageName = null;
     
-        // Обрабатываем изображение только если оно было загружено
         if ($request->hasFile('path_img')) {
             $imageName = time() . '.' . $request->file('path_img')->extension();
             $request->file('path_img')->move(public_path('images'), $imageName);
@@ -84,6 +86,7 @@ class PostController extends Controller
         return redirect()->route('dashboard');
     }
 
+    //архивация поста
     public function updateArchive(Post $post) {
 
         $post->update([
@@ -93,6 +96,7 @@ class PostController extends Controller
         
     }
 
+    //деархивация поста
     public function updateUnarchive(Post $post) {
 
         $post->update([
@@ -102,6 +106,7 @@ class PostController extends Controller
         
     }
 
+    //обновление количества откликов
     public function updateCount(Post $post) {
 
         $post->increment('reports_count');
@@ -109,6 +114,7 @@ class PostController extends Controller
         return redirect()->back();
     }
 
+    //удаление поста
     public function destroy(Post $post){
         if(auth()->id() !== $post->user_id){
             abort(403);

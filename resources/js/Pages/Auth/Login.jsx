@@ -22,8 +22,7 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <GuestLayout>
-            <Head title="Log in" />
+        <GuestLayout title='Снова Вместе!' subtitle='Еще немного и мы снова Вместе'>
 
             {status && (
                 <div className="mb-4 text-sm font-medium text-green-600">
@@ -33,16 +32,16 @@ export default function Login({ status, canResetPassword }) {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="login" value="Login" />
+                    <InputLabel htmlFor="login" value="Логин" className='font-medium text-[14px] leading-103 text-[#696969]'/>
 
                     <TextInput
                         id="login"
-                        type="login"
+                        type="text"
                         name="login"
+                        placeholder="Введите свой логин"
                         value={data.login}
                         className="mt-1 block w-full"
-                        autoComplete="login"
-                        isFocused={true}
+                        autoComplete="current-login"
                         onChange={(e) => setData('login', e.target.value)}
                     />
 
@@ -50,12 +49,13 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel htmlFor="password" value="Пароль" className='font-medium text-[14px] leading-103 text-[#696969]  mt-[14px]'/>
 
                     <TextInput
                         id="password"
                         type="password"
                         name="password"
+                        placeholder="Введите свой пароль"
                         value={data.password}
                         className="mt-1 block w-full"
                         autoComplete="current-password"
@@ -74,25 +74,29 @@ export default function Login({ status, canResetPassword }) {
                                 setData('remember', e.target.checked)
                             }
                         />
-                        <span className="ms-2 text-sm text-gray-600">
-                            Remember me
+                        <span className="ms-2 text-sm text-gray-600 text-[14px]">
+                            Запомнить меня на этом компьютере
                         </span>
                     </label>
                 </div>
 
-                <div className="mt-4 flex items-center justify-end">
-                    {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                        >
-                            Forgot your password?
-                        </Link>
-                    )}
-
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
+                <div className="flex flex-col items-center justify-end mt-[50px]">
+                    <PrimaryButton  disabled={processing}>
+                        Войти
                     </PrimaryButton>
+                    <div className="mt-[13px]">
+                    <span className="font-normal text-[14px] leading-[103%] text-[#696969]">
+                    Еще нет аккаутна?
+                    </span>
+                    <span className="text-[18px]"> </span>
+                    <Link
+                            href={route('register')}
+                            className="underline decoration-solid underline-offset-4 text-black text-[14px]"
+                        >
+                            Зарегистрироваться
+                        </Link>
+                    </div>
+                    
                 </div>
             </form>
         </GuestLayout>

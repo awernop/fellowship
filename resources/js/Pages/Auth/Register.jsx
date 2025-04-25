@@ -4,8 +4,10 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import React, { useState } from 'react';
 
 export default function Register() {
+    const [formPart, setFormPart] = useState(1);
     const { tags } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         login: '',
@@ -36,10 +38,10 @@ export default function Register() {
     };
 
     return (
-        <GuestLayout>
+        <GuestLayout title='Будем Вместе?' subtitle='Присоединяйтесь к проекту Вместе всего за три шага'>
             <Head title="Register" />
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className="w-[591px]">
                 <div>
                     <InputLabel htmlFor="login" value="Login" />
 
