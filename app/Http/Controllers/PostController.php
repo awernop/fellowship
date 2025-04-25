@@ -22,6 +22,15 @@ class PostController extends Controller
         ]);
     }
 
+    public function welcome()
+    {
+        $posts=Post::all();
+
+        return Inertia::render('Welcome', [
+            'posts' => $posts
+        ]);
+    }
+
     //выгрузка заархивированных постов
     public function archivedIndex()
     {

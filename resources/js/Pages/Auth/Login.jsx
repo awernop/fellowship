@@ -22,7 +22,9 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <GuestLayout title='Снова Вместе!' subtitle='Еще немного и мы снова Вместе'>
+        <GuestLayout title='Снова Вместе!' subtitle='Еще немного и мы снова Вместе' className='w-[350px]'>
+
+            <Head title="Логин" />
 
             {status && (
                 <div className="mb-4 text-sm font-medium text-green-600">
@@ -40,7 +42,7 @@ export default function Login({ status, canResetPassword }) {
                         name="login"
                         placeholder="Введите свой логин"
                         value={data.login}
-                        className="mt-1 block w-full"
+                        className="mt-1 block"
                         autoComplete="current-login"
                         onChange={(e) => setData('login', e.target.value)}
                     />
@@ -49,7 +51,7 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Пароль" className='font-medium text-[14px] leading-103 text-[#696969]  mt-[14px]'/>
+                    <InputLabel htmlFor="password" value="Пароль" className='font-medium text-[14px] leading-103 text-[#696969] mt-[14px]'/>
 
                     <TextInput
                         id="password"
@@ -57,7 +59,7 @@ export default function Login({ status, canResetPassword }) {
                         name="password"
                         placeholder="Введите свой пароль"
                         value={data.password}
-                        className="mt-1 block w-full"
+                        className="mt-1 block"
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}
                     />
@@ -81,11 +83,11 @@ export default function Login({ status, canResetPassword }) {
                 </div>
 
                 <div className="flex flex-col items-center justify-end mt-[50px]">
-                    <PrimaryButton  disabled={processing}>
+                    <PrimaryButton  disabled={processing} className='p-[150px]'>
                         Войти
                     </PrimaryButton>
                     <div className="mt-[13px]">
-                    <span className="font-normal text-[14px] leading-[103%] text-[#696969]">
+                    <span className="font-normal text-[12px] leading-[103%] text-[#696969]">
                     Еще нет аккаутна?
                     </span>
                     <span className="text-[18px]"> </span>

@@ -7,14 +7,14 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return Inertia::render('Welcome', [
          'canLogin' => Route::has('login'),
          'canRegister' => Route::has('register'),
          'laravelVersion' => Application::VERSION,
          'phpVersion' => PHP_VERSION,
      ]);
- });
+ });*/
 
 /*Route::get('/dashboard',[PostController::class, 'index'])->name('posts.index');
 
@@ -25,6 +25,8 @@ Route::get('/dashboard', function () {
 Route::get('/dashboard', [PostController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::get('/', [PostController::class, 'welcome'])->name('posts.welcome');
 
 Route::get('/archive', [PostController::class, 'archivedIndex'])
     ->middleware(['auth', 'verified'])

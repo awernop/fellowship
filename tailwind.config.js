@@ -18,6 +18,12 @@ export default {
                 /*montserrat: ['Montserrat'],
                 ntsomic: ['NTSomic'],*/
               },
+              colors: {
+                elephant: '#f5f6f9',
+                night: '#2a303e',
+                flower: '#4e43e5',
+                bloom: '#564be9',
+              },
         },
     },
 
