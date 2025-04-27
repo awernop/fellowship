@@ -4,37 +4,58 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import ModalPost from '@/Components/modalCreate';
 
 export default function AuthenticatedLayout({ header, children }) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const user = usePage().props.auth.user;
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
+    const [isTopBannerVisible, setIsTopBannerVisible] = useState(true);
+
+    const closeBanner = () => {
+        setIsTopBannerVisible(false);
+    };
+
     return (
         <div className="min-h-screen bg-gray-100">
+            {isTopBannerVisible && (
+                <div className="h-[35px] bg-gray-100 flex items-center justify-center w-full relative text-[14px]">
+                    <p className="font-normal">Давайте изменим мир Вместе!</p>
+                    <a href="#" className="ml-2 font-bold">Узнать больше о проекте</a>
+
+                    {/* Кнопка закрытия */}
+                    <button
+                        onClick={closeBanner}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 font-extrabold text-gray-500 hover:text-gray-700"
+                        aria-label="Закрыть"
+                    >
+                        ✕
+                    </button>
+                </div>
+            )}
             <nav className="border-b border-gray-100 bg-white">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
-                                <Link href="/">
+                                <Link href="/dashboard">
                                     <ApplicationLogoMini className="block h-9 w-auto fill-current text-gray-800" />
                                 </Link>
-                            </div>
-
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route('dashboard')}
-                                    active={route().current('dashboard')}
-                                >
-                                    Dashboard
-                                </NavLink>
                             </div>
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
-                            <div className="relative ms-3">
+                            <div className="relative ms-3 flex items-center gap-6">
+                                <a className="inline-flex items-center px-6 py-1 bg-flower border border-transparent rounded-md font-semibold text-[14px] text-white hover:bg-bloom focus:bg-bloom active:bg-bloom focus:outline-none transition ease-in-out duration-350"
+                                    href={route('posts.create')} /*onClick={() => setIsModalOpen(true)}*/>
+                                    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19.7916 13.5416H13.5416V19.7916H11.4583V13.5416H5.20825V11.4583H11.4583V5.20831H13.5416V11.4583H19.7916V13.5416Z" fill="white" />
+                                    </svg>
+                                    Новый пост
+                                </a>
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
@@ -42,7 +63,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                                 type="button"
                                                 className="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
                                             >
-                                                {user.username}
+                                                {user?.path_img && (
+                                        <img
+                                            src={`/images/${user.path_img}`}
+                                            alt="user pfp"
+                                            className="w-[35px]"                                        
+                                        />
+                                    )}
+                                                
 
                                                 <svg
                                                     className="-me-0.5 ms-2 h-4 w-4"
@@ -61,17 +89,30 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
+                                        <div className="flex flex-col items-center justify-center mt-3">
+                                        {user?.path_img && (
+                                        <img
+                                            src={`/images/${user.path_img}`}
+                                            alt="user pfp"
+                                            className="w-[50px] mb-1"                                        
+                                        />
+                                    )}
+                                    <div className="flex flex-col items-center mb-2">
+                                        <span className="text-[15px] font-semibold select-none">{user.username}</span>
+                                        <span className="text-[14px] mt-[-4px] select-none">@{user.login}</span>
+                                    </div>
+                                        </div>
                                         <Dropdown.Link
                                             href={route('profile.edit')}
                                         >
-                                            Profile
+                                            Настройки профиля
                                         </Dropdown.Link>
                                         <Dropdown.Link
                                             href={route('logout')}
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                            Выйти
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
@@ -162,15 +203,13 @@ export default function AuthenticatedLayout({ header, children }) {
                 </div>
             </nav>
 
-            {header && (
-                <header className="bg-white shadow">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                        {header}
-                    </div>
-                </header>
-            )}
-
             <main>{children}</main>
+
+            {isModalOpen && (
+                <ModalPost 
+                    onClose={() => setIsModalOpen(false)} 
+                />
+            )}
         </div>
     );
 }

@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
                     'username'=>'Admin Anna',
                     'email'=>'admin@fellowship.com',
                     'role'=>'admin',
+                    'path_img'=>'default_avatar.png',
                     'password'=> Hash::make('su0101666')
                 ],
                 [
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
                     'username'=>'User#1',
                     'email'=>'example@example.com',
                     'role'=>null,
+                    'path_img'=>'default_avatar.png',
                     'password'=> Hash::make('12345678')
                 ],
             ]

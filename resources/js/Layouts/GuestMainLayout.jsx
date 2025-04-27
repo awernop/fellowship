@@ -3,7 +3,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import { useState } from 'react';
 
-export default function AuthenticatedLayout({ children }) {
+export default function GuestMainLayout({ children }) {
 
   const [showingNavigationDropdown, setShowingNavigationDropdown] =
     useState(false);

@@ -41,6 +41,16 @@ class PostController extends Controller
         ]);
     }
 
+    //выгрузка постов пользователя
+    public function userIndex()
+    {
+        $posts=Post::where('user_id', Auth::user()->id)->get();
+
+        return Inertia::render('Profile', [
+            'posts' => $posts
+        ]);
+    }
+
     //создание поста
     public function create()
     {

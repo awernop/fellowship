@@ -11,9 +11,9 @@ export default function ModalPost({ post, onClose }) {
                   <h2 className="text-lg font-medium">{post.title}</h2>
                   <button
                       onClick={onClose}
-                      className="text-gray-500 hover:text-gray-700 text-2xl"
+                      className="transform -translate-y-1/2 font-extrabold text-gray-500 hover:text-gray-700"
                   >
-                      &times;
+                      ✕
                   </button>
               </div>
               {post?.path_img && (
