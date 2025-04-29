@@ -58,7 +58,7 @@ export default function Create() {
 
             <div className="py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <span className='font-manrope font-semibold text-[22px] leading-[103%] text-[#242424] select-none mt-[13px]'>Создать новый пост</span>
-                <p className='font-manrope font-medium mt-1 text-[#696969] select-none text-[22px]'>Что вы сможете предложить в этот раз?</p>
+                <p className='font-manrope font-medium mt-1 text-[#696969] select-none text-[15px]'>Что вы сможете предложить в этот раз?</p>
                 <form onSubmit={submit} enctype="multipart/form-data">
                     <div className="mt-4">
                         <div className="group relative">
@@ -69,7 +69,7 @@ export default function Create() {
                                 onChange={(e) => setData('path_img', e.target.files[0] || null)}
                                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                             />
-                            <div className="flex flex-col items-center w-full py-[100px] px-[350px] bg-indigo-100 text-indigo-700 rounded-md group-hover:bg-indigo-200 cursor-pointer text-center text-[15px] font-semibold focus: transition duration-300 ease-in-out">
+                            <div className="flex flex-col items-center w-full py-[50px] px-[350px] bg-indigo-100 text-indigo-700 rounded-md group-hover:bg-indigo-200 cursor-pointer text-center text-[15px] font-semibold focus: transition duration-300 ease-in-out">
                             <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M22.4582 32.6666V16.027L17.1498 21.3354L14.2915 18.375L24.4998 8.16663L34.7082 18.375L31.8498 21.3354L26.5415 16.027V32.6666H22.4582ZM12.2498 40.8333C11.1269 40.8333 10.166 40.4338 9.367 39.6348C8.56803 38.8359 8.16787 37.8742 8.1665 36.75V30.625H12.2498V36.75H36.7498V30.625H40.8332V36.75C40.8332 37.8729 40.4337 38.8345 39.6347 39.6348C38.8357 40.4352 37.8741 40.8347 36.7498 40.8333H12.2498Z" fill="#4E43E5" />
 </svg>

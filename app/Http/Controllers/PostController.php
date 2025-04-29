@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Tag;
 use Inertia\Inertia;
 
@@ -42,11 +43,14 @@ class PostController extends Controller
     }
 
     //выгрузка постов пользователя
-    public function userIndex()
+    public function userIndex($login)
     {
-        $posts=Post::where('user_id', Auth::user()->id)->get();
+        $user=User::where('login', $login)->firstOrFail();
+        
+        $posts=$user->posts()->latest()->paginate(10);
 
-        return Inertia::render('Profile', [
+        return Inertia::render('UserProfile', [
+            'user'=>$user,
             'posts' => $posts
         ]);
     }

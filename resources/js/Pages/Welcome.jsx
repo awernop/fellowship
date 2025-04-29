@@ -3,6 +3,8 @@ import { Head, usePage, router } from '@inertiajs/react';
 import ModalReport from '@/Components/ModalReport';
 import ModalPost from '@/Components/ModalPost';
 import GuestMainLayout from '../Layouts/GuestMainLayout';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+
 
 
 export default function Welcome({posts}) {
@@ -16,7 +18,7 @@ export default function Welcome({posts}) {
     };
 
     return (
-        <GuestMainLayout>
+        <AuthenticatedLayout>
             <Head title="Главная" />
                         <div className="py-12">
                             
@@ -60,6 +62,6 @@ export default function Welcome({posts}) {
                                 )}
                             </div>
                         </div>
-        </GuestMainLayout>
+        </AuthenticatedLayout>
     );
 }

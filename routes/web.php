@@ -46,6 +46,8 @@ Route::middleware('auth')->group(function () {
         ->name('posts.destroy')
         ->middleware('auth');
 
+    Route::get('/@{login}', [PostController::class, 'userIndex'])->name('users.posts');
+
     Route::post('/report', [ReportController::class, 'store'])->name('reports.store');
     Route::get('/report/create', [ReportController::class, 'create'])->name('reports.create');
 });
