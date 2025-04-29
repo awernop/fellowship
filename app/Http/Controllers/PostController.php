@@ -16,7 +16,7 @@ class PostController extends Controller
     //выгрузка всех постов
     public function index()
     {
-        $posts=Post::all();
+        $posts=Post::with('tags', 'user:id,username,login,path_img')->get();
 
         return Inertia::render('Dashboard', [
             'posts' => $posts
@@ -25,7 +25,7 @@ class PostController extends Controller
 
     public function welcome()
     {
-        $posts=Post::all();
+        $posts=Post::with('tags')->get();
 
         return Inertia::render('Welcome', [
             'posts' => $posts
@@ -47,10 +47,10 @@ class PostController extends Controller
     {
         $user=User::where('login', $login)->firstOrFail();
         
-        $posts=$user->posts()->latest()->paginate(10);
+        $posts=Post::where('user_id', $user->id)->with('tags', 'user:id,username,login,path_img')->get();
 
         return Inertia::render('UserProfile', [
-            'user'=>$user,
+            'user'=>$user->load('tags'),
             'posts' => $posts
         ]);
     }

@@ -4,7 +4,7 @@ import ModalReport from '@/Components/ModalReport';
 import ModalPost from '@/Components/ModalPost';
 import GuestMainLayout from '../Layouts/GuestMainLayout';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-
+import { Post } from '@/Components/Post';
 
 
 export default function Welcome({posts}) {

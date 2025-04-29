@@ -35,7 +35,7 @@ export default function AuthenticatedLayout({ header, children }) {
             )}
             
             <nav className="border-b border-gray-100 bg-white">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="mx-auto  px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
@@ -102,6 +102,9 @@ export default function AuthenticatedLayout({ header, children }) {
                                                 </div>
                                                 <Dropdown.Link href={route('users.posts', { login: user.login })}>
                                                     Мой профиль
+                                                </Dropdown.Link>
+                                                <Dropdown.Link href={route('archive')}>
+                                                    Архив
                                                 </Dropdown.Link>
                                                 <Dropdown.Link href={route('profile.edit')}>
                                                     Настройки профиля

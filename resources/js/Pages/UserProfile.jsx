@@ -4,6 +4,7 @@ import { Head, useForm, usePage, router } from '@inertiajs/react';
 import ModalReport from '@/Components/ModalReport';
 import ModalPost from '@/Components/ModalPost';
 import DeletePostButton from '@/Components/DeletePostButton';
+import { Post } from '@/Components/Post';
 
 export default function UserProfile() {
     const { user, posts } = usePage().props;
@@ -34,7 +35,7 @@ export default function UserProfile() {
             }
         >
             <Head title={`Профиль ${user.username}`} />
-                <div className="flex flex h-[calc(100vh-100px)] bg-gray-50">
+                <div className="flex h-[calc(100vh-100px)] bg-gray-50">
                     <div className="w-80 flex-shrink-0 p-6 sticky top-0 border-r">
                     <div className="flex flex-col items-center justify-center mt-3">
                         {user?.path_img && (
@@ -48,59 +49,27 @@ export default function UserProfile() {
                             <span className="text-[22px] font-semibold select-none">{user.username}</span>
                             <span className="text-[18px] mt-[-4px] select-none">@{user.login}</span>
                         </div>
-                        <div>
-                            {user.tags.map((tag)=>(
-                                <div>
-                                    <p>{tag.title}</p>
-                                </div>
-                            ))}
-                        </div>
+                        <div className="mt-2">
+  {user?.tags?.length > 0 ? (
+    <div className="flex items-center justify-center flex-wrap gap-2">
+      {user.tags.map((tag) => (
+        <span 
+          key={tag.id} 
+          className="px-3 py-1 bg-[#EEEDFF] text-flower text-sm font-medium rounded-full"
+        >
+          {tag.title}
+        </span>
+      ))}
+    </div>
+  ) : (
+    <p className="text-gray-500 text-sm">Пользователь не указал теги</p>
+  )}
+</div>
                     </div>
                     </div>
-                    <div className="flex-1 p-6 overflow-y-auto">
-                        {posts.data.filter(post => !post.archived).map((item) => (
-                            <div key={item.id} className="mb-4 p-4 border-b">
-                                {/* Область для просмотра информации */}
-                                <div
-                                    className="cursor-pointer"
-                                    onClick={() => handlePostClick(item, 'info')}
-                                >
-                                    {item?.path_img && (
-                                        <img
-                                            src={`/images/${item.path_img}`}
-                                            alt="Work image"
-                                            className="w-[100px]" />
-                                    )}
-                                    <p>{item.title}</p>
-                                    <p>{item.description}</p>
-                                    <p>Кол-во откликов: {item.reports_count || 0}</p>
-                                </div>
-
-                                {/* Кнопки действий */}
-                                <div className="mt-3">
-                                    {item.user_id === usePage().props.auth.user.id ? (
-                                        <div>
-                                            <button
-                                                className="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-350"
-                                                onClick={(e) => Archive(e, item.id)}
-                                            >
-                                                ЗААРХИВИРОВАТЬ
-                                            </button>
-                                            <DeletePostButton post={item} />
-                                        </div>
-                                    ) : (
-                                        <button
-                                            className="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-350"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handlePostClick(item, 'report');
-                                            }}
-                                        >
-                                            У МЕНЯ ЕСТЬ ИДЕЯ
-                                        </button>
-                                    )}
-                                </div>
-                            </div>
+                    <div className="flex flex-wrap  gap-3 p-6 overflow-y-auto">
+                        {posts.filter(post => !post.archived).map((item) => (
+                            <Post key={item} post={item}/>
                         ))}
                     </div>
 
