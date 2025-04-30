@@ -10,6 +10,7 @@ export default function AuthenticatedLayout({ header, children }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const { auth } = usePage().props;
     const user = auth.user;
+    const isAdmin = auth.user?.role === 'admin';
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const [isTopBannerVisible, setIsTopBannerVisible] = useState(true);
@@ -33,7 +34,7 @@ export default function AuthenticatedLayout({ header, children }) {
                     </button>
                 </div>
             )}
-            
+
             <nav className="border-b border-gray-100 bg-white">
                 <div className="mx-auto  px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between">
@@ -67,7 +68,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                                             <img
                                                                 src={`/images/${user.path_img}`}
                                                                 alt="user pfp"
-                                                                className="w-[35px]"                                        
+                                                                className="w-[35px]"
                                                             />
                                                         )}
                                                         <svg
@@ -92,7 +93,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                                         <img
                                                             src={`/images/${user.path_img}`}
                                                             alt="user pfp"
-                                                            className="w-[50px] mb-1"                                        
+                                                            className="w-[50px] mb-1"
                                                         />
                                                     )}
                                                     <div className="flex flex-col items-center mb-2">
@@ -100,19 +101,28 @@ export default function AuthenticatedLayout({ header, children }) {
                                                         <span className="text-[14px] mt-[-4px] select-none">@{user.login}</span>
                                                     </div>
                                                 </div>
-                                                <Dropdown.Link href={route('users.posts', { login: user.login })}>
+                                                {isAdmin && (
+                                                    <Dropdown.Link
+                                                        href={route('admin.index')}
+                                                        className="bg-flower text-white hover:bg-bloom"
+                                                    >
+                                                        Панель администратора
+                                                    </Dropdown.Link>
+                                                )}
+                                                <Dropdown.Link href={route('users.posts', { login: user.login })} className=' hover:bg-gray-100 focus:bg-gray-100'>
                                                     Мой профиль
                                                 </Dropdown.Link>
-                                                <Dropdown.Link href={route('archive')}>
-                                                    Архив
+                                                <Dropdown.Link href={route('archive')} className=' hover:bg-gray-100 focus:bg-gray-100'>
+                                                    Архив 
                                                 </Dropdown.Link>
-                                                <Dropdown.Link href={route('profile.edit')}>
+                                                <Dropdown.Link href={route('profile.edit')} className=' hover:bg-gray-100 focus:bg-gray-100'>
                                                     Настройки профиля
                                                 </Dropdown.Link>
                                                 <Dropdown.Link
                                                     href={route('logout')}
                                                     method="post"
                                                     as="button"
+                                                    className=' hover:bg-gray-100 focus:bg-gray-100'
                                                 >
                                                     Выйти
                                                 </Dropdown.Link>
@@ -121,11 +131,11 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </>
                                 ) : (
                                     <div className="hidden sm:ms-6 sm:flex sm:items-center">
-              <div className="relative ms-3 flex gap-8 items-center">
-                <a href="/login" className="font-medium text-[14px] leading-103 text-[#696969]">Войти</a>
-                <a href="/register" className="inline-flex items-center rounded-lg border border-transparent bg-flower py-2 px-7 text-[14px] font-semibold text-white transition duration-150 ease-in-out hover:bg-[#564be9] focus:bg-[#564be9] focus:outline-none focus:ring-2">Создать аккаунт</a>
-              </div>
-            </div>
+                                        <div className="relative ms-3 flex gap-8 items-center">
+                                            <a href="/login" className="font-medium text-[14px] leading-103 text-[#696969]">Войти</a>
+                                            <a href="/register" className="inline-flex items-center rounded-lg border border-transparent bg-flower py-2 px-7 text-[14px] font-semibold text-white transition duration-150 ease-in-out hover:bg-[#564be9] focus:bg-[#564be9] focus:outline-none focus:ring-2">Создать аккаунт</a>
+                                        </div>
+                                    </div>
                                 )}
                             </div>
                         </div>
@@ -172,7 +182,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </ResponsiveNavLink>
-                                
+
                                 <div className="border-t border-gray-200 pb-1 pt-4">
                                     <div className="px-4">
                                         <div className="text-base font-medium text-gray-800">
@@ -214,8 +224,8 @@ export default function AuthenticatedLayout({ header, children }) {
             <main>{children}</main>
 
             {isModalOpen && (
-                <ModalPost 
-                    onClose={() => setIsModalOpen(false)} 
+                <ModalPost
+                    onClose={() => setIsModalOpen(false)}
                 />
             )}
         </div>

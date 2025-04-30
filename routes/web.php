@@ -3,9 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Middleware\Admin;
 
 /*Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -50,6 +52,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/report', [ReportController::class, 'store'])->name('reports.store');
     Route::get('/report/create', [ReportController::class, 'create'])->name('reports.create');
+});
+
+Route::middleware((Admin::class))->group(function(){
+    Route::get('/admin', [AdminController::class, 'index']) -> name('admin.index');
 });
 
 require __DIR__.'/auth.php';
