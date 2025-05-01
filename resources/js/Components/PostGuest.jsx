@@ -7,7 +7,7 @@ import Dropdown from './Dropdown';
 import Modal from '@/Components/Modal';
 
 
-export const Post = ({ post }) => {
+export const PostGuest = ({ post }) => {
     const [activePost, setActivePost] = useState(null);
     const [modalType, setModalType] = useState(null);
     const [isModalPostOpen, setIsModalPostOpen] = useState(false);
@@ -71,36 +71,7 @@ export const Post = ({ post }) => {
                         </div>
                     </div>
                 </a>
-                {post.user_id === usePage().props.auth.user.id ? (
-                    <Dropdown onClick={(e) => { e.stopPropagation(); }}>
-                        <Dropdown.Trigger>
-                            <button>
-                                <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="15" cy="11" r="2" fill="#B6C2DC" />
-                                    <circle cx="15" cy="17.4" r="2" fill="#B6C2DC" />
-                                    <circle cx="15" cy="23.8" r="2" fill="#B6C2DC" />
-                                </svg>
-                            </button>
-                        </Dropdown.Trigger>
-
-                        <Dropdown.Content>
-                            <Dropdown.Link onClick={(e) => Archive(e, post.id)}>
-                                Скрыть пост
-                            </Dropdown.Link>
-                            <button className='className="block w-full text-left text-red-600 text-[14px] px-4 py-2 hover:bg-gray-100 text-red-600"'
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    confirmDelete(e);
-                                }}
-                            >
-                                Удалить
-                            </button>
-                        </Dropdown.Content>
-                    </Dropdown>)
-                    :
-                    (<p></p>)
-                }
-            </div>
+                </div>
             <div
                 
             >
@@ -140,29 +111,6 @@ export const Post = ({ post }) => {
                 </div>
             </div>
             </div>
-            <Modal show={confirmingDeletion} onClose={() => setConfirmingDeletion(false)}>
-                <div className="p-6">
-                    <h2 className="text-[22px] font-medium text-gray-900">
-                        Вы уверены, что хотите удалить этот пост?
-                    </h2>
-                    <p className="text-[15px] font-normal text-gray-500"> Это действие нельзя будет отменить</p>
-                    <div className="mt-6 flex justify-end">
-                        <button
-                            className="px-4 py-2 bg-gray-200 rounded-md mr-2"
-                            onClick={() => setConfirmingDeletion(false)}
-                        >
-                            Отмена
-                        </button>
-                        <button
-                            onClick={deletePost}
-                            disabled={processing}
-                            className="px-4 py-2 bg-red-600 text-white rounded-md"
-                        >
-                            {processing ? 'Удаление...' : 'Удалить'}
-                        </button>
-                    </div>
-                </div>
-            </Modal>
 
             {/* Модальные окна */}
             {activePost && modalType === 'info' && (

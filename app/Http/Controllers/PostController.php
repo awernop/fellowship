@@ -25,7 +25,7 @@ class PostController extends Controller
 
     public function welcome()
     {
-        $posts=Post::with('tags')->get();
+        $posts=Post::with('tags', 'user:id,username,login,path_img')->get();
 
         return Inertia::render('Welcome', [
             'posts' => $posts
@@ -83,12 +83,22 @@ class PostController extends Controller
             //'post_id' => 'required|integer|exists:posts,id'
         ]);
 
-        $imageName = null;
+        if ($request->hasFile('path_img')) {
+            // Если пользователь загрузил изображение
+            $imagePath = time() . '.' . $request->file('path_img')->extension();
+            $request->file('path_img')->move(public_path('images'), $imagePath);
+        } else {
+            $defaultImages = ['cover1.jpg', 'cover2.jpg', 'cover3.jpg', 'cover4.jpg'];
+            $randomImage = $defaultImages[array_rand($defaultImages)];
+            $imagePath = $randomImage;
+        }
+
+        /*$imageName = null;
     
         if ($request->hasFile('path_img')) {
             $imageName = time() . '.' . $request->file('path_img')->extension();
             $request->file('path_img')->move(public_path('images'), $imageName);
-        }
+        }*/
     
 
         $post = Post::create([
@@ -98,7 +108,7 @@ class PostController extends Controller
             'reports_count'=>0,
             'paid'=>$request->paid,
             'archived'=>false,
-            'path_img' => $imageName,
+            'path_img' => $imagePath,
             "user_id" => Auth::user()->id,
         ]);
 

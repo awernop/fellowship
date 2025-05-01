@@ -14,7 +14,7 @@ class AdminController extends Controller
     public function index(Request $request){
         $reports = Report::all();
         $users = User::all();
-        $posts = Post::all();
+        $posts = Post::with('tags', 'user:id,username,login,path_img')->get();
 
         $activeTab = $request->query('tab', 'posts');
         

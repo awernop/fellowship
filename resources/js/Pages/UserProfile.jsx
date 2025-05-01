@@ -66,7 +66,7 @@ export default function UserProfile() {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-wrap  gap-3 p-6 overflow-y-auto">
+                <div className="flex flex-wrap items-start gap-3 p-6 overflow-y-auto">
                     {posts.filter(post => !post.archived).map((item) => (
                         <Post key={item} post={item} />
                     ))}

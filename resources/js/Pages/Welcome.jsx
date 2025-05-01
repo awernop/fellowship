@@ -5,6 +5,7 @@ import ModalPost from '@/Components/ModalPost';
 import GuestMainLayout from '../Layouts/GuestMainLayout';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Post } from '@/Components/Post';
+import { PostGuest } from '@/Components/PostGuest';
 
 
 export default function Welcome({posts}) {
@@ -12,56 +13,18 @@ export default function Welcome({posts}) {
     const [activePost, setActivePost] = useState(null);
     const [modalType, setModalType] = useState(null);
 
-    const handlePostClick = (post, type) => {
-        setActivePost(post);
-        setModalType(type);
-    };
-
     return (
         <AuthenticatedLayout>
             <Head title="Главная" />
                         <div className="py-12">
-                            
-                            <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                                <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                                    {posts.filter(post => !post.archived).map((item) => (
-                                        <div key={item.id} className="mb-4 p-4 border-b">
-                                            {/* Область для просмотра информации */}
-                                            <div
-                                                className="cursor-pointer"
-                                                onClick={() => handlePostClick(item, 'info')}
-                                            >
-                                                {item?.path_img && (
-                                                    <img
-                                                        src={`/images/${item.path_img}`}
-                                                        alt="Work image"
-                                                        className="w-[100px]"                                        />
-                                                )}
-                                                <p>{item.title}</p>
-                                                <p>{item.description}</p>
-                                                <p>Кол-во откликов: {item.reports_count || 0}</p>
+                                        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                                            <div className="flex flex-wrap gap-3 gap-y-3 overflow-hidden sm:rounded-lg">
+                                                {posts.filter(post => !post.archived).map((item) => (
+                                                    <PostGuest post={item} key={item.id}/>
+                                                ))}
                                             </div>
-                        
                                         </div>
-                                    ))}
-                                </div>
-            
-                                {/* Модальные окна */}
-                                {activePost && modalType === 'info' && (
-                                    <ModalPost
-                                        post={activePost}
-                                        onClose={() => setActivePost(null)}
-                                    />
-                                )}
-            
-                                {activePost && modalType === 'report' && (
-                                    <ModalReport
-                                        post_id={activePost.id}
-                                        onClose={() => setActivePost(null)}
-                                    />
-                                )}
-                            </div>
-                        </div>
+                                    </div>
         </AuthenticatedLayout>
     );
 }
