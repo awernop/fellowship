@@ -11,15 +11,18 @@ use Inertia\Inertia;
 
 class AdminController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $reports = Report::all();
         $users = User::all();
         $posts = Post::all();
+
+        $activeTab = $request->query('tab', 'posts');
         
         return Inertia::render('Admin', [
             'reports'=>$reports,
             'posts'=>$posts,
-            'users'=>$users
+            'users'=>$users,
+            'initialTab' => $activeTab
         ]);
     }
 }
