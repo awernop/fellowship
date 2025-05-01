@@ -1,10 +1,9 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import React, { useState } from 'react';
 import { Head, usePage, router } from '@inertiajs/react';
-import ModalPost from '@/Components/ModalPost';
-import DeletePostButton from '@/Components/DeletePostButton';
 import { UsersList } from '@/Components/UsersList';
 import { PostsList } from '@/Components/PostsList';
+import { ReportsList } from '@/Components/ReportsList';
 
 export default function Archive() {
     const { users, posts, reports, initialTab } = usePage().props;
@@ -22,6 +21,7 @@ export default function Archive() {
     const TAB_COMPONENTS = {
         posts: <PostsList posts={posts} format={displayFormat} />,
         users: <UsersList users={users} format={displayFormat} />,
+        reports: <ReportsList reports={reports} format={displayFormat} />,
     };
 
     return (

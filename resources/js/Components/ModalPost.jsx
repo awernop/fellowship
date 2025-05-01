@@ -2,6 +2,7 @@ import { usePage } from '@inertiajs/react';
 import ModalReport from './ModalReport';
 import React, { useState } from 'react';
 import Modal from './Modal';
+import { createPortal } from 'react-dom';
 
 export default function ModalPost({ post, show = false, onClose }) {
     const [activePost, setActivePost] = useState(null);
@@ -14,7 +15,7 @@ export default function ModalPost({ post, show = false, onClose }) {
 
     return (
         <>
-            <Modal show={show} onClose={onClose} maxWidth="xl">
+            <Modal show={show} onClose={onClose} maxWidth="xl" className="z-50">
                 <div className="p-6">
                     <div className="flex justify-between items-center mb-4">
                         <h2 className="text-lg font-medium">{post.title}</h2>
@@ -65,11 +66,12 @@ export default function ModalPost({ post, show = false, onClose }) {
                 
             </Modal>
 
-            {activePost && modalType === 'report' && (
+            {activePost && modalType === 'report' && createPortal(
                 <ModalReport
                     post_id={activePost.id}
                     onClose={() => setActivePost(null)}
-                />
+                />,
+                document.body
             )}
         </>
     );

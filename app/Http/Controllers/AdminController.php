@@ -12,7 +12,7 @@ use Inertia\Inertia;
 class AdminController extends Controller
 {
     public function index(Request $request){
-        $reports = Report::all();
+        $reports = Report::with('post:id,title,preview', 'user:id,username,login,path_img')->get();
         $users = User::all();
         $posts = Post::with('tags', 'user:id,username,login,path_img')->get();
 

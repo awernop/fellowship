@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { usePage, router, useForm } from '@inertiajs/react';
 import ModalReport from '@/Components/ModalReport';
 import ModalPost from '@/Components/ModalPost';
-import DeletePostButton from '@/Components/DeletePostButton';
 import Dropdown from './Dropdown';
 import Modal from '@/Components/Modal';
 
@@ -20,8 +19,6 @@ export const Post = ({ post }) => {
             onSuccess: () => console.log('Post archived successfully'),
         });
     }
-
-
 
     const handlePostClick = (post, type) => {
         setActivePost(post);
@@ -45,7 +42,10 @@ export const Post = ({ post }) => {
         <div className="flex flex-col border-b w-[360px] bg-white rounded-md shadow-md hover:bg-gray-50 transition-all duration-300 cursor-pointer"
                 >
             {post?.path_img && (
-                <div className='relative w-full '>
+                <div className='relative w-full ' onClick={() => {
+                    handlePostClick(post, 'info');
+                    setIsModalPostOpen(true)
+                }}>
                     <img
                         src={`/images/${post.path_img}`}
                         alt="Work image"
@@ -54,16 +54,18 @@ export const Post = ({ post }) => {
                 </div>
 
             )}
-            <div className='p-4'>
+            <div className='p-4 pt-3 flex flex-col justify-between'>
             <div className='flex justify-between'>
                 <a href={route('users.posts', { login: post.user.login })}>
-                    <div className='flex items-center gap-1' onClick={(e) => { e.stopPropagation(); }}>
+                    <div className='flex items-center gap-2' onClick={(e) => { e.stopPropagation(); }}>
                         {post.user?.path_img && (
-                            <img
+                            <div>
+                                <img
                                 src={`/images/${post.user.path_img}`}
                                 alt="user pfp"
-                                className="w-[25px] mb-1"
+                                className="w-[27px] mb-1 rounded-full object-cover"
                             />
+                            </div>
                         )}
                         <div>
                             <p className='text-[15px] font-medium'>{post.user.username}</p>
@@ -101,10 +103,13 @@ export const Post = ({ post }) => {
                     (<p></p>)
                 }
             </div>
-            <div
+            <div onClick={() => {
+                    handlePostClick(post, 'info');
+                    setIsModalPostOpen(true)
+                }}
                 
             >
-                <div>
+                <div className='mt-1'>
                     <div >
                         <p className='text-[22px] font-semibold'>{post.title}</p>
 
@@ -115,27 +120,19 @@ export const Post = ({ post }) => {
 
                 <div className='flex flex-col items-start'>
                     {post?.tags?.length > 0 ? (
-                        <div className="flex items-start mt-12 flex-wrap gap-2 mb-2">
+                        <div className="flex items-start mt-9 flex-wrap gap-2 mb-2">
                             {post.tags.map((tag) => (
                                 <span
                                     key={tag.id}
-                                    className="px-3 py-1 bg-[#EEEDFF] text-flower text-sm font-medium rounded-full"
+                                    className="px-3 py-1 bg-[#EEEDFF] text-flower text-[12px] font-medium rounded-full"
                                 >
-                                    {tag.title}
+                                    #{tag.title}
                                 </span>
                             ))}
                         </div>
                     ) : (
-                        <p className="text-gray-500 text-sm">Пользователь не указал теги</p>
+                        <p className="text-gray-500 text-[12px]">Пользователь не указал теги</p>
                     )}
-                    <div>
-                        <button onClick={() => {
-                    handlePostClick(post, 'info');
-                    setIsModalPostOpen(true)
-                }}>
-                        Подробнее
-                        </button>
-                    </div>
                     <p className='text-[14px]'>Уже откликнулось: {post.reports_count || 0}</p>
                 </div>
             </div>
