@@ -35,9 +35,17 @@ class PostController extends Controller
     //выгрузка заархивированных постов
     public function archivedIndex()
     {
-        $posts=Post::where('user_id', Auth::user()->id)->get();
+        $userId = Auth::id();
+        $posts = Post::where('user_id', $userId)
+                ->where('archived', true) 
+                ->with(['tags', 'user' => function($query) {
+                    $query->select('id', 'username', 'login', 'path_img');
+                }])
+                ->get();
+        $user = Auth::user();
 
         return Inertia::render('Archive', [
+            'user' => $user->load('tags'),
             'posts' => $posts
         ]);
     }
