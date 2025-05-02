@@ -17,33 +17,43 @@ class TagSeeder extends Seeder
             [
                 [
                     'title'=>'Комиксы',
+                    'link'=>'comics',
                 ],
                 [
                     'title'=>'Наука',
+                    'link'=>'science',
                 ],
                 [
                     'title'=>'Музыка',
+                    'link'=>'music',
                 ],
                 [
-                    'title'=>'Благотворительность',
+                    'title'=>'Активизм',
+                    'link'=>'activism',
                 ],
                 [
                     'title'=>'Видеоигры',
+                    'link'=>'videogames',
                 ],
                 [
                     'title'=>'Кино и анимация',
+                    'link'=>'movie',
                 ],
                 [
                     'title'=>'Литература',
+                    'link'=>'literature',
                 ],
                 [
                     'title'=>'Технологии',
+                    'link'=>'technologies',
                 ],
                 [
                     'title'=>'Косплей',
+                    'link'=>'cosplay',
                 ],
                 [
                     'title'=>'Бизнес',
+                    'link'=>'business',
                 ],
             ]
         );

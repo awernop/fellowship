@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TagController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +34,8 @@ Route::get('/', [PostController::class, 'welcome'])->name('posts.welcome');
 Route::get('/archive', [PostController::class, 'archivedIndex'])
     ->middleware(['auth', 'verified'])
     ->name('archive');
+
+Route::get('/tags/{tag}', [TagController::class, 'getPostsByTag'])->name('tags.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

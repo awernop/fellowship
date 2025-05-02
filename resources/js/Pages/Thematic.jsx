@@ -1,65 +1,30 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import React, { useState } from 'react';
-import { Head, usePage, router } from '@inertiajs/react';
-import ModalReport from '@/Components/ModalReport';
-import ModalPost from '@/Components/ModalPost';
-import { Post } from '@/Components/Post';
-import { PostHorizontal } from '@/Components/PostHorizontal';
+import { useState } from "react";
+import { usePage } from "@inertiajs/react";
+import { Post } from "@/Components/Post";
+import { PostHorizontal } from "@/Components/PostHorizontal";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import SideNavigation from "@/Components/SideNavigation";
+import { Head } from '@inertiajs/react';
 
-export default function UserProfile() {
-    const { user, posts } = usePage().props;
+export default function Thematic() {
+    const { posts, tag } = usePage().props;
     const [displayFormat, setDisplayFormat] = useState('cards');
-
-    const [activePost, setActivePost] = useState(null);
-    const [modalType, setModalType] = useState(null);
 
 
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard
-                </h2>
-            }
-        >
-            <Head title={`Профиль ${user.username}`} />
-            <div className="flex h-[calc(100vh-100px)] bg-white">
-                <div className="w-60 flex-shrink-0 p-6 sticky top-0 border-r">
-                    <div className="flex flex-col items-center justify-center mt-3">
-                        {user?.path_img && (
-                            <img
-                                src={`/images/${user.path_img}`}
-                                alt="user pfp"
-                                className="w-[100px] mb-1"
-                            />
-                        )}
-                        <div className="flex flex-col items-center mb-2">
-                            <span className="text-[22px] font-semibold select-none">{user.username}</span>
-                            <span className="text-[18px] mt-[-4px] select-none">@{user.login}</span>
-                        </div>
-                        <div className="mt-2">
-                            {user?.tags?.length > 0 ? (
-                                <div className="flex items-center justify-center flex-wrap gap-2">
-                                    {user.tags.map((tag) => (
-                                        <span
-                                            key={tag.id}
-                                            className="px-3 py-1 bg-[#EEEDFF] text-flower text-sm font-medium rounded-full"
-                                        >
-                                            {tag.title}
-                                        </span>
-                                    ))}
-                                </div>
-                            ) : (
-                                <p className="text-gray-500 text-sm">Пользователь не указал теги</p>
-                            )}
-                        </div>
-                    </div>
+        <AuthenticatedLayout>
+            <Head title={`${tag.title}`} />
+            <div className="flex h-[calc(100vh-100px)] bg-gray-50">
+                {/* Зафиксированная часть */}
+                <div className="w-60 flex-shrink-0 pt-3 sticky top-0 border-r bg-white">
+                    <SideNavigation />
                 </div>
-                <div className="flex flex-col flex-wrap items-start gap-3 p-6 overflow-y-auto bg-gray-50 w-full">
-                    <div className='flex items-center justify-between w-full px-3'>
+                {/* Часть с прокруткой */}
+                <div className="flex flex-col flex-wrap gap-3 w-full overflow-y-auto">
+                    <div className='flex items-center justify-between w-full px-9 p-6'>
                         <div>
-                            <p className='text-[22px] font-semibold'>Посты пользователя {user.username}</p>
-                            <p className='text-[15px] font-normal'>Подпишитесь, чтобы следить за обновлениями этого пользователя</p>
+                            <p className='text-[22px] font-semibold'>{`Посты по теме: ${tag.title}`}</p>
+                            <p className='text-[15px] font-normal'>Слетите за тем, что вам нравится</p>
                         </div>
                         <div className="flex  items-center space-x-2 pt-3 pl-8">
                             <button
@@ -84,13 +49,12 @@ export default function UserProfile() {
                             </button>
                         </div>
                     </div>
-                    <div className="mt-4 w-full">
+                    <div className="">
                         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                             {displayFormat === 'cards' ? (
                                 <div className="flex flex-wrap items-start gap-3 gap-y-3 overflow-hidden sm:rounded-lg">
 
                                     {posts
-                                        .filter(post => !post.archived)
                                         .map((item) => (
                                             <Post post={item} key={item.id} />
                                         )
@@ -101,7 +65,6 @@ export default function UserProfile() {
                                 <div className="flex flex-col items-start gap-3 gap-y-3 overflow-hidden sm:rounded-lg">
 
                                     {posts
-                                        .filter(post => !post.archived)
                                         .map((item) => (
                                             <PostHorizontal post={item} key={item.id} />
                                         )
@@ -114,21 +77,8 @@ export default function UserProfile() {
                     </div>
                 </div>
 
-                {/* Модальные окна */}
-                {activePost && modalType === 'info' && (
-                    <ModalPost
-                        post={activePost}
-                        onClose={() => setActivePost(null)}
-                    />
-                )}
-
-                {activePost && modalType === 'report' && (
-                    <ModalReport
-                        post_id={activePost.id}
-                        onClose={() => setActivePost(null)}
-                    />
-                )}
             </div>
+
         </AuthenticatedLayout>
     );
 }

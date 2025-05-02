@@ -17,7 +17,7 @@ export default function Archive() {
             <AuthenticatedLayout>
                 <Head title="Архив" />
                 <div className="flex h-[calc(100vh-100px)] bg-white">
-                                <div className="w-80 flex-shrink-0 p-6 sticky top-0 border-r">
+                                <div className="w-60 flex-shrink-0 p-6 sticky top-0 border-r">
                                     <div className="flex flex-col items-center justify-center mt-3">
                                         {user?.path_img && (
                                             <img

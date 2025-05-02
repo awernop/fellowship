@@ -4,7 +4,7 @@ import { Head, router } from '@inertiajs/react';
 import ModalReport from '@/Components/ModalReport';
 import ModalPost from '@/Components/ModalPost';
 import { Post } from '@/Components/Post';
-import { SideNavigation } from '@/Components/SideNavigation';
+import SideNavigation  from '@/Components/SideNavigation';
 import { PostHorizontal } from '@/Components/PostHorizontal';
 
 export default function Dashboard({ posts }) {
