@@ -1,38 +1,31 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import React, { useState } from 'react';
-import { Head, usePage, router } from '@inertiajs/react';
-import ModalReport from '@/Components/ModalReport';
-import ModalPost from '@/Components/ModalPost';
-import { Post } from '@/Components/Post';
-import { PostHorizontal } from '@/Components/PostHorizontal';
-import UserSideNavigation from '@/Components/UserSideNavigation';
+import { useState } from "react";
+import { usePage } from "@inertiajs/react";
+import { Post } from "@/Components/Post";
+import { PostHorizontal } from "@/Components/PostHorizontal";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import SideNavigation from "@/Components/SideNavigation";
+import { Head } from '@inertiajs/react';
+import UserSideNavigation from "@/Components/UserSideNavigation";
 
-export default function UserProfile() {
-    const { user, posts } = usePage().props;
+export default function MyReports() {
+    const { user, posts, reports } = usePage().props;
     const [displayFormat, setDisplayFormat] = useState('cards');
-
-    const [activePost, setActivePost] = useState(null);
-    const [modalType, setModalType] = useState(null);
 
 
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard
-                </h2>
-            }
-        >
-            <Head title={`Профиль ${user.username}`} />
-            <div className="flex h-[calc(100vh-100px)] bg-white">
+        <AuthenticatedLayout>
+            <Head title={`Мои отклики на посты`} />
+            <div className="flex h-[calc(100vh-100px)] bg-gray-50">
+                {/* Зафиксированная часть */}
                 <div className="w-60 flex-shrink-0 pt-3 sticky top-0 border-r bg-white">
-                <UserSideNavigation/>
+                    <UserSideNavigation />
                 </div>
-                <div className="flex flex-col flex-wrap items-start gap-3 p-6 overflow-y-auto bg-gray-50 w-full">
-                    <div className='flex items-center justify-between w-full px-3'>
+                {/* Часть с прокруткой */}
+                <div className="flex flex-col flex-wrap gap-3 w-full overflow-y-auto">
+                    <div className='flex items-center justify-between w-full px-9 p-6'>
                         <div>
-                            <p className='text-[22px] font-semibold'>Посты пользователя {user.username}</p>
-                            <p className='text-[15px] font-normal'>Подпишитесь, чтобы следить за обновлениями этого пользователя</p>
+                            <p className='text-[22px] font-semibold'>Ваши отклики</p>
+                            <p className='text-[15px] font-normal'>Здесь хранится история ваших взаимодействий с постами других пользователей</p>
                         </div>
                         <div className="flex  items-center space-x-2 pt-3 pl-8">
                             <button
@@ -57,15 +50,31 @@ export default function UserProfile() {
                             </button>
                         </div>
                     </div>
-                    <div className="mt-4 w-full">
+                    <div className="">
                         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                             {displayFormat === 'cards' ? (
                                 <div className="flex flex-wrap items-start gap-3 gap-y-3 overflow-hidden sm:rounded-lg">
 
-                                    {posts
-                                        .filter(post => !post.archived)
+                                    {reports
                                         .map((item) => (
-                                            <Post post={item} key={item.id} />
+                                            <div key={item.id} className="flex flex-col p-4 border-b w-[360px] bg-white rounded-md ">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-full">
+                                                        <div className="bg-[#EEEDFF] p-2 pl-4 w-full rounded-md mb-4">
+                                                            <p className="text-[14px] font-medium text-flower">{item.post.title}</p>
+                                                            <p className="text-[14px] font-normal text-flower">{item.post.preview}</p>
+                                                        </div>
+                                                        <div className="">
+                                                            <p className="text-[18px] mt-[-4px] font-semibold">{item.user.username} (это вы)</p>
+                                                            <p className="text-[15px] mt-[-4px]">@{item.user.login}</p>
+                                                        </div>
+                                                        {item.message ? (<p>{item.message}</p>) : (<p className="italic text-[14px] font-light text-gray-400">Вы не оставили сообщения</p>)}
+                                                        <div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         )
                                         )
                                     }
@@ -73,10 +82,9 @@ export default function UserProfile() {
                             ) : (
                                 <div className="flex flex-col items-start gap-3 gap-y-3 overflow-hidden sm:rounded-lg">
 
-                                    {posts
-                                        .filter(post => !post.archived)
+                                    {reports
                                         .map((item) => (
-                                            <PostHorizontal post={item} key={item.id} />
+                                            <div>{item.id}</div>
                                         )
                                         )
                                     }
@@ -87,21 +95,8 @@ export default function UserProfile() {
                     </div>
                 </div>
 
-                {/* Модальные окна */}
-                {activePost && modalType === 'info' && (
-                    <ModalPost
-                        post={activePost}
-                        onClose={() => setActivePost(null)}
-                    />
-                )}
-
-                {activePost && modalType === 'report' && (
-                    <ModalReport
-                        post_id={activePost.id}
-                        onClose={() => setActivePost(null)}
-                    />
-                )}
             </div>
+
         </AuthenticatedLayout>
     );
 }

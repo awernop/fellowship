@@ -52,4 +52,23 @@ class ReportController extends Controller
 
         
     }
+
+    public function myReports()
+    {
+        $userId = Auth::id();
+        $posts = Post::with('tags', 'user:id,username,login,path_img')->get();
+        $user = Auth::user();
+
+        $reports = Report::where('user_id', $userId)
+                ->with(['user' => function($query) {
+                    $query->select('id', 'username', 'login', 'path_img');
+                }])->with('post:id,title,preview')
+                ->get();
+
+        return Inertia::render('MyReports', [
+            'user'=>$user->load('tags'),
+            'posts' => $posts,
+            'reports'=>$reports,
+        ]);
+    }
 }

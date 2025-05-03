@@ -115,6 +115,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                                 <Dropdown.Link href={route('archive')} className=' hover:bg-gray-100 focus:bg-gray-100'>
                                                     Архив 
                                                 </Dropdown.Link>
+                                                <Dropdown.Link href={route('user.repors')} className=' hover:bg-gray-100 focus:bg-gray-100'>
+                                                    Мои отклики 
+                                                </Dropdown.Link>
+                                                <Dropdown.Link href={route('archive')} className=' hover:bg-gray-100 focus:bg-gray-100'>
+                                                    Отклики на мои посты
+                                                </Dropdown.Link>
                                                 <Dropdown.Link href={route('profile.edit')} className=' hover:bg-gray-100 focus:bg-gray-100'>
                                                     Настройки профиля
                                                 </Dropdown.Link>

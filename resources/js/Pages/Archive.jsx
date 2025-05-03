@@ -5,6 +5,7 @@ import ModalPost from '@/Components/ModalPost';
 import { ArchivedPost } from '@/Components/ArchivedPost';
 import ModalReport from '@/Components/ModalReport';
 import { ArchivedPostHorizontal } from '@/Components/ArchivedPostHorizontal';
+import UserSideNavigation from '@/Components/UserSideNavigation';
 
 export default function Archive() {
      const { user, posts } = usePage().props;
@@ -17,36 +18,8 @@ export default function Archive() {
             <AuthenticatedLayout>
                 <Head title="Архив" />
                 <div className="flex h-[calc(100vh-100px)] bg-white">
-                                <div className="w-60 flex-shrink-0 p-6 sticky top-0 border-r">
-                                    <div className="flex flex-col items-center justify-center mt-3">
-                                        {user?.path_img && (
-                                            <img
-                                                src={`/images/${user.path_img}`}
-                                                alt="user pfp"
-                                                className="w-[100px] mb-1"
-                                            />
-                                        )}
-                                        <div className="flex flex-col items-center mb-2">
-                                            <span className="text-[22px] font-semibold select-none">{user.username}</span>
-                                            <span className="text-[18px] mt-[-4px] select-none">@{user.login}</span>
-                                        </div>
-                                        <div className="mt-2">
-                                            {user?.tags?.length > 0 ? (
-                                                <div className="flex items-center justify-center flex-wrap gap-2">
-                                                    {user.tags.map((tag) => (
-                                                        <span
-                                                            key={tag.id}
-                                                            className="px-3 py-1 bg-[#EEEDFF] text-flower text-sm font-medium rounded-full"
-                                                        >
-                                                            {tag.title}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            ) : (
-                                                <p className="text-gray-500 text-sm">Пользователь не указал теги</p>
-                                            )}
-                                        </div>
-                                    </div>
+                                <div className="w-60 flex-shrink-0 pt-3 sticky top-0 border-r bg-white">
+                                    <UserSideNavigation />
                                 </div>
                                 <div className="flex flex-col flex-wrap items-start gap-3 p-6 overflow-y-auto bg-gray-50 w-full">
                                     <div className='flex items-center justify-between w-full px-3'>

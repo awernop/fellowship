@@ -35,6 +35,10 @@ Route::get('/archive', [PostController::class, 'archivedIndex'])
     ->middleware(['auth', 'verified'])
     ->name('archive');
 
+Route::get('/myreports', [ReportController::class, 'myReports'])
+    ->middleware(['auth', 'verified'])
+    ->name('user.repors');
+
 Route::get('/tags/{tag}', [TagController::class, 'getPostsByTag'])->name('tags.show');
 
 Route::middleware('auth')->group(function () {
