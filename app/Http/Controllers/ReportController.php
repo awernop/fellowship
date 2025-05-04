@@ -71,4 +71,15 @@ class ReportController extends Controller
             'reports'=>$reports,
         ]);
     }
+
+    public function destroy(Report $report){
+        if(auth()->id() !== $report->user_id){
+            abort(403);
+        }
+
+        $report->delete();
+
+        return redirect()->route('user.repors')
+            ->with('success', 'отклик удален');
+    }
 }

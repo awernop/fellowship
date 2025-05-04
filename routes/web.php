@@ -55,6 +55,10 @@ Route::middleware('auth')->group(function () {
         ->name('posts.destroy')
         ->middleware('auth');
 
+    Route::delete('/reports/{report}', [ReportController::class, 'destroy'])
+        ->name('reports.destroy')
+        ->middleware('auth');
+
     Route::get('/@{login}', [PostController::class, 'userIndex'])->name('users.posts');
 
     Route::post('/report', [ReportController::class, 'store'])->name('reports.store');

@@ -20,7 +20,7 @@ export default function Dashboard({ posts }) {
                     <SideNavigation />
                 </div>
                 {/* Часть с прокруткой */}
-                <div className="flex flex-col flex-wrap gap-3 w-full overflow-y-auto">
+                <div className="flex flex-col gap-3 w-full overflow-y-auto">
                     <div className="flex items-center space-x-2 pt-6 pl-9">
                         <button
                             onClick={() => setDisplayFormat('cards')}
