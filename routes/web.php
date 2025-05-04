@@ -39,6 +39,10 @@ Route::get('/myreports', [ReportController::class, 'myReports'])
     ->middleware(['auth', 'verified'])
     ->name('user.repors');
 
+Route::get('/reports2myposts', [ReportController::class, 'reports'])
+    ->middleware(['auth', 'verified'])
+    ->name('user.reportsposts');
+
 Route::get('/tags/{tag}', [TagController::class, 'getPostsByTag'])->name('tags.show');
 
 Route::middleware('auth')->group(function () {
@@ -54,6 +58,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])
         ->name('posts.destroy')
         ->middleware('auth');
+
+    Route::post('/reports/{report}/reject', [ReportController::class, 'reject'])->name('reports.reject');
+    Route::post('/reports/{report}/accept', [ReportController::class, 'accept'])->name('reports.accept');
 
     Route::delete('/reports/{report}', [ReportController::class, 'destroy'])
         ->name('reports.destroy')

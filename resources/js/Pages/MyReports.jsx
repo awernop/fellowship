@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, usePage, useForm, Link } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import UserSideNavigation from "@/Components/UserSideNavigation";
-import Modal from "@/Components/Modal";
 
 export default function MyReports() {
     const { user, posts, reports } = usePage().props;
-    const [displayFormat, setDisplayFormat] = useState('cards');
 
     const getStatusStyles = (approved) => {
         switch (approved) {
-            case true:
+            case 1:
                 return {
                     bg: 'bg-green-50',
                     border: 'border-green-200',
-                    text: 'text-green-800',
+                    text: 'text-green-500',
                     icon: (
                         <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -22,11 +19,11 @@ export default function MyReports() {
                     ),
                     label: 'Принят'
                 };
-            case false:
+            case 0:
                 return {
                     bg: 'bg-red-50',
                     border: 'border-red-200',
-                    text: 'text-red-800',
+                    text: 'text-red-500',
                     icon: (
                         <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

@@ -72,7 +72,7 @@ class ReportController extends Controller
         ]);
     }
 
-    public function destroy(Report $report){
+    /*public function destroy(Report $report){
         if(auth()->id() !== $report->user_id){
             abort(403);
         }
@@ -81,5 +81,40 @@ class ReportController extends Controller
 
         return redirect()->route('user.repors')
             ->with('success', 'отклик удален');
+    }*/
+
+    public function reports()
+    {
+        $user = Auth::user();
+
+        $posts = Post::with('tags', 'user:id,username,login,path_img')->get();
+    
+    $reports = Report::with(['user:id,username,login', 'post'])
+        ->whereHas('post', function($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })
+        ->get();
+
+    return Inertia::render('ReportsToMyPosts', [
+        'reports' => $reports,
+        'user' => $user->only('id', 'login', 'username', 'path_img'),
+        'posts' => $posts,
+    ]);
+    }
+
+    public function reject(Report $report)
+    {
+        $report->update([
+            'approved' => false,
+        ]);
+        return redirect()->back();
+    }
+
+    public function accept(Report $report)
+    {
+        $report->update([
+            'approved' => true,
+        ]);
+        return redirect()->back();
     }
 }
