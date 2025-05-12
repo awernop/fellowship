@@ -39,23 +39,10 @@ export const Post = ({ post }) => {
         });
     };
     return (
-        <div className="flex flex-col border-b w-[360px] bg-white rounded-md shadow-md hover:bg-gray-50 transition-all duration-300 cursor-pointer"
+        <div className="flex flex-col border-b w-[360px] bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
                 >
-            {post?.path_img && (
-                <div className='relative w-full ' onClick={() => {
-                    handlePostClick(post, 'info');
-                    setIsModalPostOpen(true)
-                }}>
-                    <img
-                        src={`/images/${post.path_img}`}
-                        alt="Work image"
-                        className='rounded-t-md'
-                    />
-                </div>
-
-            )}
-            <div className='p-4 pt-3 flex flex-col justify-between'>
-            <div className='flex justify-between'>
+            <div className='p-3 pt-4 flex flex-col justify-between'>
+            <div className='flex justify-between mb-3 px-2'>
                 <a href={route('users.posts', { login: post.user.login })}>
                     <div className='flex items-center gap-2' onClick={(e) => { e.stopPropagation(); }}>
                         {post.user?.path_img && (
@@ -63,13 +50,13 @@ export const Post = ({ post }) => {
                                 <img
                                 src={`/images/${post.user.path_img}`}
                                 alt="user pfp"
-                                className="w-[27px] mb-1 rounded-full object-cover"
+                                className="w-[35px] mb-1 rounded-full object-cover"
                             />
                             </div>
                         )}
                         <div>
                             <p className='text-[15px] font-medium'>{post.user.username}</p>
-                            <p className='text-[14px] mt-[-4px]'>@{post.user.login}</p>
+                            <p className='text-[14px] mt-[-4px]'>{post.user.login}</p>
                         </div>
                     </div>
                 </a>
@@ -109,12 +96,25 @@ export const Post = ({ post }) => {
                 }}
                 
             >
-                <div className='mt-1'>
+                {post?.path_img && (
+                <div className='relative w-full ' onClick={() => {
+                    handlePostClick(post, 'info');
+                    setIsModalPostOpen(true)
+                }}>
+                    <img
+                        src={`/images/${post.path_img}`}
+                        alt="Work image"
+                        className='rounded-xl'
+                    />
+                </div>
+
+            )}
+                <div className='mt-3'>
                     <div >
-                        <p className='text-[22px] font-semibold'>{post.title}</p>
+                        <p className='text-[25px] font-bold text-night pl-2'>{post.title}</p>
 
                     </div>
-                    <p className='text-[14px] font-sm text-muted-foreground'>{post.preview}</p>
+                    <p className='text-[14px] font-sm text-muted-foreground pl-3'>{post.preview}</p>
 
                 </div>
 

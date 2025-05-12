@@ -20,7 +20,7 @@ export default function AuthenticatedLayout({ header, children }) {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-white">
             {isTopBannerVisible && (
                 <div className="h-[35px] bg-gray-100 flex items-center justify-center w-full relative text-[14px]">
                     <p className="font-normal">Давайте изменим мир Вместе!</p>

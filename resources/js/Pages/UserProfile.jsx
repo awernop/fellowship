@@ -28,7 +28,7 @@ export default function UserProfile() {
                 <div className="w-60 flex-shrink-0 pt-3 sticky top-0 border-r bg-white">
                 <UserSideNavigation/>
                 </div>
-                <div className="flex flex-col flex-wrap items-start gap-3 p-6 overflow-y-auto bg-gray-50 w-full">
+                <div className="flex flex-col items-start gap-3 p-6 overflow-y-auto bg-gray-50 w-full">
                     <div className='flex items-center justify-between w-full px-3'>
                         <div>
                             <p className='text-[22px] font-semibold'>Посты пользователя {user.username}</p>
