@@ -20,8 +20,8 @@ export default {
               },
               colors: {
                 elephant: '#f5f6f9',
-                night: '#2a303e',
-                flower: '#4e43e5',
+                night: '#303236',
+                flower: '#BEDB2F',
                 bloom: '#564be9',
               },
         },

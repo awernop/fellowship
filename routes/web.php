@@ -4,7 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -30,6 +32,8 @@ Route::get('/dashboard', [PostController::class, 'index'])
     ->name('dashboard');
 
 Route::get('/', [PostController::class, 'welcome'])->name('posts.welcome');
+
+Route::get('/challenges', [PostController::class, 'challengesGuest'])->name('posts.guest');
 
 Route::get('/archive', [PostController::class, 'archivedIndex'])
     ->middleware(['auth', 'verified'])
@@ -70,6 +74,21 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/report', [ReportController::class, 'store'])->name('reports.store');
     Route::get('/report/create', [ReportController::class, 'create'])->name('reports.create');
+
+    Route::post('/claims/{claim}/reject', [ClaimController::class, 'reject'])->name('claims.reject');
+    Route::post('/claims/{claim}/accept', [ClaimController::class, 'accept'])->name('claims.accept');
+    Route::post('/claim', [ClaimController::class, 'store'])->name('claims.store');
+    Route::get('/claim/create', [ClaimController::class, 'create'])->name('claims.create');
+
+    // Route::post('/users/{user}/subscribe', [SubscriptionController::class, 'subscribe']);
+    // Route::post('/users/{user}/unsubscribe', [SubscriptionController::class, 'unsubscribe']);
+    // Route::get('/users/{user}/check-subscription', [SubscriptionController::class, 'check']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/users/{user}/subscribe', [SubscriptionController::class, 'subscribe']);
+    Route::post('/users/{user}/unsubscribe', [SubscriptionController::class, 'unsubscribe']);
+    Route::get('/users/{user}/check-subscription', [SubscriptionController::class, 'check']);
 });
 
 Route::middleware((Admin::class))->group(function(){

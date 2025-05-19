@@ -38,12 +38,14 @@ class ReportController extends Controller
     public function store(Request $request): RedirectResponse {
         $request->validate([
             'message'=>['nullable', 'string', 'max:2000'],
+            'contact'=>['string', 'max:200'],
             'post_id' => 'required|exists:posts,id',
         ]);
 
         Report::create([
             'approved' => null,
             'message'=>($request->message) ?? null,
+            'contact'=>($request->contact),
             "user_id" => Auth::user()->id,
             "post_id" => $request->post_id,
         ]);

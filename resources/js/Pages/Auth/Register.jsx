@@ -8,7 +8,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 export default function Register() {
-    const [step, setStep] = useState(1);
     const { tags } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         login: '',
@@ -38,28 +37,11 @@ export default function Register() {
         return data.tags.length >= 3;
     };
 
-    const nextStep = () => {
-        setStep(step+1);
-    };
-
-    const prevStep = () =>{
-        setStep(step-1);
-    };
-
     return (
         <GuestLayout title='Будем Вместе?' subtitle='Присоединяйтесь к проекту в один клик'>
             <Head title="Register" />
             <div className='flex flex-col items-start'>
-            {/* <div className="flex justify-between mb-5">
-                {[1, 2, 3].map((stepNumber) => (
-                    <div key={stepNumber} className="w-1/3 text-center">
-                        <div className={`h-2 w-[145px]  ${step >= stepNumber ? 'bg-blue-500' : 'bg-gray-200'}`}></div>
-                        
-                    </div>
-                ))}
-            </div> */}
             <form onSubmit={submit}>
-                {step === 1 && (
                     <div>
                         <div>
                     <InputLabel htmlFor="login" value="Логин" className='font-medium text-[14px] leading-103 text-[#696969] mt-[14px]'/>
@@ -97,9 +79,7 @@ export default function Register() {
                     <InputError message={errors.username} className="mt-2" />
                 </div>
                     </div>
-                )}
 
-                {step === 2 && (
                     <div>
                         <div className="mt-4">
                     <InputLabel htmlFor="email" value="E-mail" className='font-medium text-[14px] leading-103 text-[#696969] mt-[14px]'/>
@@ -165,9 +145,7 @@ export default function Register() {
                 </div>
 
                     </div>
-                )}
 
-                {step === 3 && (
                     <div className="mb-6 mt-4">
                     <label className='font-medium text-[14px] leading-103 text-[#696969] block text-sm mb-2'>Выберите интересующие темы:</label>
                     <div className="flex flex-wrap gap-2 w-[350px]">
@@ -189,42 +167,16 @@ export default function Register() {
                     {errors.tags && <span className="text-red-500 text-sm">{errors.tags}</span>}
                     
                 </div>
-                )}
                 
                
 
                 
 
                 <div className="flex flex-col items-center justify-end mt-[50px]">
-                                    {/* <PrimaryButton  disabled={processing} className='p-[105px]'>
+                                    <PrimaryButton  disabled={processing} className='p-[105px]'>
                                         Зарегистрироваться
-                                    </PrimaryButton> */}
+                                    </PrimaryButton>
                                      <div className="flex justify-between pt-4">
-                    {step > 1 && (
-                        <button
-                            type="button"
-                            onClick={prevStep}
-                            className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300"
-                        >
-                            Назад
-                        </button>
-                    )}
-                    {step < 3 ? (
-                        <button
-                            type="button"
-                            onClick={nextStep}
-                            className="ml-auto px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                        >
-                            Далее
-                        </button>
-                    ) : (
-                        <button
-                            type="submit"
-                            className="ml-auto px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
-                        >
-                            Зарегистрироваться
-                        </button>
-                    )}
                 </div>
                                     <div className="mt-[13px]">
                                     <span className="font-normal text-[12px] leading-[103%] text-[#696969]">

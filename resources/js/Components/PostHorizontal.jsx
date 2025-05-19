@@ -39,22 +39,22 @@ export const PostHorizontal = ({ post }) => {
     };
 
     return (
-        <div className="flex border-b w-full bg-white rounded-md shadow-md hover:bg-gray-50 transition-all duration-300 cursor-pointer"
-        >
-            {/* {post?.path_img && (
-                <div className='relative w-[320px]' onClick={() => {
+        <div className="flex gap-5 items-center border-b p-4 w-full bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+        >    
+            {post?.path_img && (
+                <div className='w-1/3' onClick={() => {
                     handlePostClick(post, 'info');
                     setIsModalPostOpen(true)
                 }}>
                     <img
                         src={`/images/${post.path_img}`}
                         alt="Work image"
-                        className=''
+                        className='rounded-2xl'
                     />
                 </div>
 
-            )} */}
-            <div className='p-4 pt-3 flex flex-col justify-between w-full'>
+            )}
+            <div className='flex flex-col justify-between w-full'>
                 <div className='flex justify-between'>
                     <a href={route('users.posts', { login: post.user.login })}>
                         <div className='flex items-center gap-2' onClick={(e) => { e.stopPropagation(); }}>
@@ -73,7 +73,8 @@ export const PostHorizontal = ({ post }) => {
                             </div>
                         </div>
                     </a>
-                    {post.user_id === usePage().props.auth.user.id ? (
+                    {user ?
+                    (post.user_id === usePage().props.auth.user.id ? (
                         <Dropdown onClick={(e) => { e.stopPropagation(); }}>
                             <Dropdown.Trigger>
                                 <button>
@@ -101,6 +102,9 @@ export const PostHorizontal = ({ post }) => {
                         </Dropdown>)
                         :
                         (<p></p>)
+                                )
+                    :
+                    (<p></p>)
                     }
                 </div>
                 <div onClick={() => {
@@ -112,13 +116,13 @@ export const PostHorizontal = ({ post }) => {
                             <p className='text-[22px] font-semibold'>{post.title}</p>
 
                         </div>
-                        <p className='text-[14px] font-sm text-muted-foreground'>{post.preview}</p>
+                       
 
                     </div>
 
                     <div className='flex flex-col items-start'>
                         {post?.tags?.length > 0 ? (
-                            <div className="flex items-start mt-9 flex-wrap gap-2 mb-2">
+                            <div className="flex items-start mt-4 flex-wrap gap-2 mb-2">
                                 {post.tags.map((tag) => (
                                     <span
                                         key={tag.id}

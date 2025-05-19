@@ -6,6 +6,7 @@ import ModalPost from '@/Components/ModalPost';
 import { Post } from '@/Components/Post';
 import { PostHorizontal } from '@/Components/PostHorizontal';
 import UserSideNavigation from '@/Components/UserSideNavigation';
+import { FollowButton } from '@/Components/FollowButton';
 
 export default function UserProfile() {
     const { user, posts } = usePage().props;

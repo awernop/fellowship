@@ -1,11 +1,10 @@
 import ApplicationLogoMini from '@/Components/ApplicationLogoMini';
 import { Link } from '@inertiajs/react';
-import image from '../../images/register.jpg';
 
 export default function GuestLayout({ children, title, subtitle }) {
     return (
-        <div className="min-h-screen flex justify-center items-center bg-[#FFFFFF] pt-6 sm:justify-center sm:items-center sm:pt-0 gap-[69px]">
-            <div className="mt-[46px] flex flex-col items-center">
+        <div className="min-h-screen flex justify-center items-start bg-[#FFFFFF] pt-6 sm:justify-center sm:items-center sm:pt-0 gap-[69px]">
+            <div className="mt-[46px] flex flex-col items-start">
                 <div>
                     <Link href="/">
                         <ApplicationLogoMini className="h-20 w-20 fill-current text-gray-500" />

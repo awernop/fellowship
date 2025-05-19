@@ -7,6 +7,8 @@ import { createPortal } from 'react-dom';
 export default function ModalPost({ post, show = false, onClose }) {
     const [activePost, setActivePost] = useState(null);
     const [modalType, setModalType] = useState(null);
+    const { auth, url } = usePage().props;
+    const user = auth.user;
 
     const handlePostClick = (post, type) => {
         setActivePost(post);
@@ -46,7 +48,8 @@ export default function ModalPost({ post, show = false, onClose }) {
                     </div>
 
                     <div className="mt-4">
-                        {post.user_id === usePage().props.auth.user.id ? (
+                        {user ?
+                        (post.user_id === usePage().props.auth.user.id ? (
                             <div>
                                 {/* Placeholder for owner actions */}
                             </div>
@@ -60,7 +63,14 @@ export default function ModalPost({ post, show = false, onClose }) {
                             >
                                 У МЕНЯ ЕСТЬ ИДЕЯ
                             </button>
-                        )}
+                        ))
+                        :
+                        (
+                            <div>
+
+                            </div>
+                        )
+                    }
                     </div>
                 </div>
                 

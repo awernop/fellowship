@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->boolean('approved')->nullable();
             $table->string('message')->nullable();
+            $table->string('contact');
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('user_id')->constrained();

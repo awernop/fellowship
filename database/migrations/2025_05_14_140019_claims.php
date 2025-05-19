@@ -11,19 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('claims', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('preview');
-            $table->text('description');
-            $table->string('reports_count')->nullable();
-            $table->boolean('paid')->default(0);
-            $table->boolean('archived')->default(0);
-            $table->string('path_img')->nullable();
-            $table->string('contact');
+            $table->boolean('approved')->nullable();
+            $table->string('reason')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('post_id')->constrained();
         });
     }
 
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('claims');
     }
 };

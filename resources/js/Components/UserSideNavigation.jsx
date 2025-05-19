@@ -1,4 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
+import { FollowButton } from "./FollowButton";
 
 export default function UserSideNavigation(){
 
@@ -72,7 +73,9 @@ export default function UserSideNavigation(){
             </Link>
                     </div>
                 ) : (
-                    <div></div>
+                    <div>
+                        <FollowButton userId={profileUser.id}/>
+                    </div>
                 )}
             
         </div>    

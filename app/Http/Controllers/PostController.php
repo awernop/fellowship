@@ -16,10 +16,21 @@ class PostController extends Controller
     //выгрузка всех постов
     public function index()
     {
-        $posts=Post::with('tags', 'user:id,username,login,path_img')->get();
+        $posts=Post::with('tags', 'user:id,username,login,path_img')
+        ->latest()
+        ->get();
+
+        $user=Auth::user();
+
+        $userPosts = Post::where('user_id', $user->id)
+        ->with(['tags', 'user:id,username,login,path_img'])
+        ->latest()
+        ->take(4)
+        ->get();
 
         return Inertia::render('Dashboard', [
-            'posts' => $posts
+            'posts' => $posts,
+            'userPosts' => $userPosts
         ]);
     }
 
@@ -28,6 +39,15 @@ class PostController extends Controller
         $posts=Post::with('tags', 'user:id,username,login,path_img')->get();
 
         return Inertia::render('Welcome', [
+            'posts' => $posts
+        ]);
+    }
+
+    public function challengesGuest()
+    {
+        $posts=Post::with('tags', 'user:id,username,login,path_img')->get();
+
+        return Inertia::render('Challenges', [
             'posts' => $posts
         ]);
     }
@@ -88,6 +108,7 @@ class PostController extends Controller
             'path_img'=>'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tags' => 'array',
             'tags.*' => 'exists:tags,id',
+            'contact'=>['required', 'string', 'max:1000'],
             //'post_id' => 'required|integer|exists:posts,id'
         ]);
 
@@ -117,6 +138,7 @@ class PostController extends Controller
             'paid'=>$request->paid,
             'archived'=>false,
             'path_img' => $imagePath,
+            'contact'=>$request->contact,
             "user_id" => Auth::user()->id,
         ]);
 

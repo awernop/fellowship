@@ -22,7 +22,7 @@ export default function AuthenticatedLayout({ header, children }) {
     return (
         <div className="min-h-screen bg-white">
             {isTopBannerVisible && (
-                <div className="h-[35px] bg-gray-100 flex items-center justify-center w-full relative text-[14px]">
+                <div className="h-[35px] bg-[#D6F251] flex items-center justify-center w-full relative text-[14px]">
                     <p className="font-normal">Давайте изменим мир Вместе!</p>
                     <a href="#" className="ml-2 font-bold">Узнать больше о проекте</a>
                     <button
@@ -35,9 +35,9 @@ export default function AuthenticatedLayout({ header, children }) {
                 </div>
             )}
 
-            <nav className="border-b bg-white">
-                <div className="mx-auto  px-4 sm:px-6 lg:px-8">
-                    <div className="flex h-16 justify-between">
+            <nav className=" bg-white border-b">
+                <div className="mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex h-14 justify-between">
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
                                 <Link href={user ? "/dashboard" : "/"}>
@@ -50,7 +50,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             <div className="relative ms-3 flex items-center gap-6">
                                 {user ? (
                                     <>
-                                        <a className="inline-flex items-center px-6 py-1 bg-flower border border-transparent rounded-md font-semibold text-[14px] text-white hover:bg-bloom focus:bg-bloom active:bg-bloom focus:outline-none transition ease-in-out duration-350"
+                                        <a className="inline-flex items-center px-6 py-1 bg-night border border-transparent rounded-full font-semibold text-[14px] text-white hover:bg-night focus:bg-night active:bg-night focus:outline-none transition ease-in-out duration-350"
                                             href={route('posts.create')}>
                                             <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M19.7916 13.5416H13.5416V19.7916H11.4583V13.5416H5.20825V11.4583H11.4583V5.20831H13.5416V11.4583H19.7916V13.5416Z" fill="white" />
@@ -68,7 +68,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                                             <img
                                                                 src={`/images/${user.path_img}`}
                                                                 alt="user pfp"
-                                                                className="w-[35px]"
+                                                                className="w-[35px] rounded-full"
                                                             />
                                                         )}
                                                         <svg
@@ -106,7 +106,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                                         href={route('admin.index')}
                                                         className="bg-flower text-white hover:bg-bloom"
                                                     >
-                                                        Панель администратора
+                                                        Админ
                                                     </Dropdown.Link>
                                                 )}
                                                 <Dropdown.Link href={route('users.posts', { login: user.login })} className=' hover:bg-gray-100 focus:bg-gray-100'>
@@ -128,7 +128,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                                     href={route('logout')}
                                                     method="post"
                                                     as="button"
-                                                    className=' hover:bg-gray-100 focus:bg-gray-100'
+                                                    className=' hover:bg-gray-100 focus:bg-gray-100 hover:rounded-3xl focus:rounded-3xl'
                                                 >
                                                     Выйти
                                                 </Dropdown.Link>
@@ -138,8 +138,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                 ) : (
                                     <div className="hidden sm:ms-6 sm:flex sm:items-center">
                                         <div className="relative ms-3 flex gap-8 items-center">
-                                            <a href="/login" className="font-medium text-[14px] leading-103 text-[#696969]">Войти</a>
-                                            <a href="/register" className="inline-flex items-center rounded-lg border border-transparent bg-flower py-2 px-7 text-[14px] font-semibold text-white transition duration-150 ease-in-out hover:bg-[#564be9] focus:bg-[#564be9] focus:outline-none focus:ring-2">Создать аккаунт</a>
+                                            <a href="/login" className="font-medium text-[14px] leading-103 text-[#696969] hover:text-night">Войти</a>
+                                            <a href="/register" className="inline-flex items-center rounded-lg border border-transparent bg-[#2A303E] py-2 px-7 text-[14px] font-semibold text-white transition duration-150 ease-in-out hover:bg-[#37393F] focus:bg-[#37393F] focus:outline-none ">Создать аккаунт</a>
                                         </div>
                                     </div>
                                 )}

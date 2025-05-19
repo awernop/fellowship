@@ -7,10 +7,10 @@ import { createRoot } from 'react-dom/client';
 
 import '../css/fonts.css';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+//const appName = import.meta.env.VITE_APP_NAME || 'Вместе';
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => `${title}`,
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.jsx`,

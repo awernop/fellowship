@@ -7,20 +7,19 @@ import TextInput from '@/Components/TextInput';
 export default function ModalReport({ post_id, onClose }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     message: '',
+    contact: '',
     post_id: post_id,
   });
 
   const submit = (e) => {
     e.preventDefault();
-    
-    // Сначала создаем жалобу
+
     post(route('reports.store'), {
       data: {
         message: data.message,
         post_id: post_id,
       },
       onSuccess: () => {
-        // После успешного создания жалобы увеличиваем счетчик
         post(route('posts.reports.increment', { id: post_id }), {
           preserveScroll: true,
           onSuccess: () => {
@@ -64,6 +63,24 @@ export default function ModalReport({ post_id, onClose }) {
               onChange={(e) => setData('message', e.target.value)}
             />
             <InputError message={errors.message} className="mt-2" />
+          </div>
+
+          <div>
+            <InputLabel htmlFor="contact" value="Ссылка на телеграм" className='font-medium text-[14px] leading-103 text-[#696969]' />
+
+            <TextInput
+              id="contact"
+              name="contact"
+              value={data.contact}
+              className="mt-1 block"
+              autoComplete="contact"
+              placeholder="@никнейм"
+              isFocused={true}
+              onChange={(e) => setData('contact', e.target.value)}
+              required
+            />
+
+            <InputError message={errors.contact} className="mt-2" />
           </div>
 
           <div className="mt-4 flex items-center justify-end">
