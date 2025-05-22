@@ -87,13 +87,13 @@ export default function Login({ status, canResetPassword }) {
                         Войти
                     </PrimaryButton>
                     <div className="mt-[13px]">
-                    <span className="font-normal text-[12px] leading-[103%] text-[#696969]">
+                    <span className="font-normal leading-[103%] text-[13px] text-[#57595C]">
                     Еще нет аккаутна?
                     </span>
                     <span className="text-[18px]"> </span>
                     <Link
                             href={route('register')}
-                            className="underline decoration-solid underline-offset-4 text-black text-[14px]"
+                            className="underline decoration-solid underline-offset-4 text-night text-[13px]"
                         >
                             Зарегистрироваться
                         </Link>

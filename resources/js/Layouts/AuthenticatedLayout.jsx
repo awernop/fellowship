@@ -21,21 +21,21 @@ export default function AuthenticatedLayout({ header, children }) {
 
     return (
         <div className="min-h-screen bg-white">
-            {isTopBannerVisible && (
-                <div className="h-[35px] bg-[#D6F251] flex items-center justify-center w-full relative text-[14px]">
+            {/* {isTopBannerVisible && (
+                <div className="h-[35px] bg-gray-300 flex items-center justify-center w-full relative text-[14px] text-night">
                     <p className="font-normal">Давайте изменим мир Вместе!</p>
                     <a href="#" className="ml-2 font-bold">Узнать больше о проекте</a>
                     <button
                         onClick={closeBanner}
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 font-extrabold text-gray-500 hover:text-gray-700"
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 font-extrabold text-white"
                         aria-label="Закрыть"
                     >
                         ✕
                     </button>
                 </div>
-            )}
+            )} */}
 
-            <nav className=" bg-white border-b">
+            {/* <nav className=" bg-white border-b">
                 <div className="mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex h-14 justify-between">
                         <div className="flex">
@@ -50,7 +50,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             <div className="relative ms-3 flex items-center gap-6">
                                 {user ? (
                                     <>
-                                        <a className="inline-flex items-center px-6 py-1 bg-night border border-transparent rounded-full font-semibold text-[14px] text-white hover:bg-night focus:bg-night active:bg-night focus:outline-none transition ease-in-out duration-350"
+                                        <a className="inline-flex items-center px-6 py-1 bg-night border border-transparent rounded-lg font-semibold text-[14px] text-white hover:bg-night focus:bg-night active:bg-night focus:outline-none transition ease-in-out duration-350"
                                             href={route('posts.create')}>
                                             <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M19.7916 13.5416H13.5416V19.7916H11.4583V13.5416H5.20825V11.4583H11.4583V5.20831H13.5416V11.4583H19.7916V13.5416Z" fill="white" />
@@ -177,7 +177,7 @@ export default function AuthenticatedLayout({ header, children }) {
                     </div>
                 </div>
 
-                {/* Мобильное меню */}
+                
                 <div className={`${showingNavigationDropdown ? 'block' : 'hidden'} sm:hidden`}>
                     <div className="space-y-1 pb-3 pt-2">
                         {user ? (
@@ -225,7 +225,7 @@ export default function AuthenticatedLayout({ header, children }) {
                         )}
                     </div>
                 </div>
-            </nav>
+            </nav> */}
 
             <main>{children}</main>
 

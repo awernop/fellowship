@@ -70,8 +70,6 @@ Route::middleware('auth')->group(function () {
         ->name('reports.destroy')
         ->middleware('auth');
 
-    Route::get('/@{login}', [PostController::class, 'userIndex'])->name('users.posts');
-
     Route::post('/report', [ReportController::class, 'store'])->name('reports.store');
     Route::get('/report/create', [ReportController::class, 'create'])->name('reports.create');
 
@@ -80,9 +78,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/claim', [ClaimController::class, 'store'])->name('claims.store');
     Route::get('/claim/create', [ClaimController::class, 'create'])->name('claims.create');
 
-    // Route::post('/users/{user}/subscribe', [SubscriptionController::class, 'subscribe']);
-    // Route::post('/users/{user}/unsubscribe', [SubscriptionController::class, 'unsubscribe']);
-    // Route::get('/users/{user}/check-subscription', [SubscriptionController::class, 'check']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -95,4 +90,8 @@ Route::middleware((Admin::class))->group(function(){
     Route::get('/admin', [AdminController::class, 'index']) -> name('admin.index');
 });
 
+Route::get('/@{login}', [PostController::class, 'userIndex'])->name('users.posts');
+
 require __DIR__.'/auth.php';
+
+Route::get('/{post}', [PostController::class, 'getPost'])->name('post');

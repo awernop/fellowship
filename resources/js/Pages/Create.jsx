@@ -1,16 +1,17 @@
+import React, { useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import { Textarea } from '@headlessui/react';
 import Checkbox from '@/Components/Checkbox';
 import SideNavigation from '@/Components/SideNavigation';
-import image from '../../../public/images/create-bg.jpg';
+import imageBg from '../../../public/images/create-bg.jpg';
 
 export default function Create() {
+    const [image, setImage] = useState(null);
     const { tags } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
@@ -28,9 +29,23 @@ export default function Create() {
         );
     };
 
-    const handleFileChange = (e) => {
-        setData('path_img', e.target.files[0]);
-    };
+    const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setData('path_img', file);
+        const reader = new FileReader();
+      reader.onload = (event) => {
+        setImage(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemove = () => {
+    setImage(null);
+    setData('path_img', null);
+    document.getElementById('path_img').value = '';
+  };
 
     const submit = (e) => {
         e.preventDefault();
@@ -40,7 +55,10 @@ export default function Create() {
         formData.append('description', data.description);
         formData.append('preview', data.preview);
         formData.append('paid', data.paid);
+        formData.append('contact', data.contact);
+    if (data.path_img) {
         formData.append('path_img', data.path_img);
+    }
         data.tags.forEach(tag => formData.append('tags[]', tag));
 
         post(route('posts.store'), {
@@ -58,13 +76,13 @@ export default function Create() {
         >
             <Head title="Новый пост" />
 
-            <div className="flex h-[calc(100vh-100px)] bg-gray-100">
+            <div className="flex h-screen bg-[#F8F7FB]">
                 {/* Зафиксированная часть */}
-                <div className="w-55 flex-shrink-0 pt-3 sticky top-0 border m-2 bg-white rounded-3xl">
+                <div className="w-55 flex-shrink-0 pt-3 sticky top-0 bg-[#F8F7FB]">
                     <SideNavigation />
                 </div>
                 {/* Часть с прокруткой */}
-                <div className="flex flex-col gap-3 w-full overflow-y-auto m-2">
+                <div className="flex flex-col gap-3 w-full overflow-y-auto mx-2 my-6">
                     <div className="py-12 mx-auto w-full bg-white border rounded-3xl sm:px-6 lg:px-8 ">
                         <span className='font-manrope font-semibold text-[22px] leading-[103%] text-[#242424] select-none mt-[13px]'>Создать новый пост</span>
                         <p className='font-manrope font-medium mt-1 text-[#696969] select-none text-[15px]'>Что вы сможете предложить в этот раз?</p>
@@ -72,33 +90,59 @@ export default function Create() {
                             <div className='flex items-start gap-5'>
                                 <div>
                                     <div className="mt-4">
-                                        <div className="relative group">
-  <div 
-    className="flex flex-col items-center w-full py-[50px] px-[35px] text-[#37393F] rounded-2xl cursor-pointer text-center text-[15px] font-semibold transition duration-300 ease-in-out relative z-0"
-    style={{ 
-      backgroundImage: `url(${image})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }}
-  >
-    {/* Псевдоэлемент для overlay */}
-    <div className="absolute inset-0 bg-white bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 rounded-md z-10"></div>
-    
-    {/* Контент */}
-    <div className="relative z-20 flex flex-col items-center">
-      <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M22.4582 32.6666V16.027L17.1498 21.3354L14.2915 18.375L24.4998 8.16663L34.7082 18.375L31.8498 21.3354L26.5415 16.027V32.6666H22.4582ZM12.2498 40.8333C11.1269 40.8333 10.166 40.4338 9.367 39.6348C8.56803 38.8359 8.16787 37.8742 8.1665 36.75V30.625H12.2498V36.75H36.7498V30.625H40.8332V36.75C40.8332 37.8729 40.4337 38.8345 39.6347 39.6348C38.8357 40.4352 37.8741 40.8347 36.7498 40.8333H12.2498Z" fill="currentColor" />
-      </svg>
-      <label htmlFor="path_img" className="mt-2 block">
-        Выберите файл
-      </label>
-    </div>
-  </div>
-   <span className='font-regular italic text-[12px] leading-103 text-gray-400'>если вы не добавите свое изображение, будет поставлено изображение по умолчанию</span>
-</div>
+      <div className="relative group">
+        <input
+          type="file"
+          id="path_img"
+          accept="image/*"
+          className="hidden"
+          onChange={handleImageUpload}
+        />
+        
+        <label
+          htmlFor="path_img"
+          className="flex flex-col items-center w-full py-[50px] px-[35px] rounded-2xl cursor-pointer text-center text-[15px] font-semibold transition duration-300 ease-in-out relative overflow-hidden"
+          style={{
+            backgroundImage: image 
+              ? `url(${image})` 
+              : `url(${imageBg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          {/* Overlay */}
+          <div className={`absolute inset-0 ${image ? 'bg-black/40' : 'bg-white/0'} group-hover:bg-black/20 transition-all rounded-md`}></div>
+          
+          {/* Контент */}
+          <div className="relative z-20 flex flex-col items-center">
+            {image ? (
+              <>
+                <span className="mt-2 text-white">Изменить фото</span>
+              </>
+            ) : (
+              <>
+                <span className="mt-2 text-white">Загрузить фото</span>
+              </>
+            )}
+          </div>
+        </label>
+      </div>
 
-                                        <InputError message={errors.path_img} className="mt-2" />
-                                    </div>
+      <div className="mt-2 flex justify-between items-center">
+        <span className="text-xs text-gray-500">
+          {image ? 'Выбрано ваше изображение' : 'Будет использовано изображение по умолчанию'}
+        </span>
+        {image && (
+          <button
+            type="button"
+            onClick={handleRemove}
+            className="text-xs text-red-500 hover:text-red-700"
+          >
+            Удалить
+          </button>
+        )}
+      </div>
+    </div>
 
                                     <div className="flex flex-col items-start gap-4 mt-[14px]">
                                         <div>
@@ -165,7 +209,7 @@ export default function Create() {
                                             id="description"
                                             name="description"
                                             value={data.description}
-                                            className="w-[450px] h-[120px] rounded-2xl bg-gray-100 border-transparent  focus:border-[#D6F251] transition duration-300 ease-in-out text-[15px]"
+                                            className="w-[450px] h-[120px] rounded-2xl bg-gray-100 border-transparent  focus:border-[#8F79E4] transition duration-300 ease-in-out text-[15px]"
                                             autoComplete="description"
                                             placeholder="Введите описание"
                                             isFocused={true}
@@ -197,7 +241,7 @@ export default function Create() {
                                                     onClick={() => toggleTag(tag.id)}
                                                     className={`px-4 py-2 rounded-full text-sm transition-colors
                                 ${data.tags.includes(tag.id)
-                                                            ? 'bg-[#D6F251] text-night font-medium'
+                                                            ? 'bg-[#7D64DD] text-white font-medium'
                                                             : 'bg-gray-100 text-gray-400 hover:bg-gray-200 font-medium'
                                                         }`}
                                                 >
@@ -212,7 +256,7 @@ export default function Create() {
                                         <PrimaryButton className="me-2 px-7" disabled={processing}>
                                             Создать пост
                                         </PrimaryButton>
-                                        <a href="dashboard" className="`inline-flex items-center rounded-full border border-gray-200 py-[10px] px-10 text-[14px] font-semibold text-night transition duration-150 ease-in-out hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-2">Отмена</a>
+                                        <a href="dashboard" className="`inline-flex items-center rounded-xl border border-gray-200 py-[10px] px-10 text-[14px] font-semibold text-night transition duration-300 ease-in-out hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-2">Отмена</a>
                                     </div>
                                 </div>
                             </div>

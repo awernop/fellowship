@@ -24,6 +24,15 @@ export const Post = ({ post }) => {
         });
     }
 
+    const openPost = (e, postId) => {
+        e.preventDefault();
+        e.stopPropagation();
+        router.get(route('post', { post: postId }), {
+            preserveScroll: true,
+            onSuccess: () => console.log('Post opened'),
+        });
+    }
+
     const handlePostClick = (post, type) => {
         setActivePost(post);
         setModalType(type);
@@ -45,7 +54,7 @@ export const Post = ({ post }) => {
         });
     };
     return (
-        <div className="flex flex-col border-gray-200 w-[390px] bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer m-1"
+        <div className="flex flex-col h-[590px] border w-[32%] bg-white rounded-xl shadow-sm transition-all duration-300 cursor-pointer m-1"
         >
             <div className='p-3 pt-4 flex flex-col justify-between'>
                 <div className='flex justify-between mb-3 px-2'>
@@ -56,74 +65,71 @@ export const Post = ({ post }) => {
                                     <img
                                         src={`/images/${post.user.path_img}`}
                                         alt="user pfp"
-                                        className="w-[35px] mb-1 rounded-full object-cover"
+                                        className="w-[35px] rounded-md object-cover"
                                     />
                                 </div>
                             )}
                             <div>
-                                <p className='text-[15px] font-medium'>{post.user.username}</p>
-                                <p className='text-[14px] mt-[-4px]'>{post.user.login}</p>
+                                <p className='text-[15px] font-semibold text-[#57595C]'>{post.user.username}</p>
+                                <p className='text-[14px] mt-[-4px] text-[#57595C] font-medium opacity-60'>@{post.user.login}</p>
                             </div>
                         </div>
                     </a>
                     {user ? (
-                    post.user_id === usePage().props.auth.user.id ? (
-                        <Dropdown onClick={(e) => { e.stopPropagation(); }}>
-                            <Dropdown.Trigger>
-                                <button>
-                                    <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="15" cy="11" r="2" fill="#B6C2DC" />
-                                        <circle cx="15" cy="17.4" r="2" fill="#B6C2DC" />
-                                        <circle cx="15" cy="23.8" r="2" fill="#B6C2DC" />
-                                    </svg>
-                                </button>
-                            </Dropdown.Trigger>
+                        post.user_id === usePage().props.auth.user.id ? (
+                            <Dropdown onClick={(e) => { e.stopPropagation(); }}>
+                                <Dropdown.Trigger>
+                                    <button>
+                                        <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="15" cy="11" r="2" fill="#B6C2DC" />
+                                            <circle cx="15" cy="17.4" r="2" fill="#B6C2DC" />
+                                            <circle cx="15" cy="23.8" r="2" fill="#B6C2DC" />
+                                        </svg>
+                                    </button>
+                                </Dropdown.Trigger>
 
-                            <Dropdown.Content>
-                                <Dropdown.Link onClick={(e) => Archive(e, post.id)}>
-                                    Скрыть пост
-                                </Dropdown.Link>
-                                <button className='className="block w-full text-left text-red-600 text-[14px] px-4 py-2 hover:bg-gray-100 text-red-600"'
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        confirmDelete(e);
-                                    }}
-                                >
-                                    Удалить
-                                </button>
-                            </Dropdown.Content>
-                        </Dropdown>)
-                        :
-                        (<p></p>
-                            //     <Dropdown onClick={(e) => { e.stopPropagation(); }}>
-                            //         <Dropdown.Trigger>
-                            //             <button>
-                            //                 <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            //                     <circle cx="15" cy="11" r="2" fill="#B6C2DC" />
-                            //                     <circle cx="15" cy="17.4" r="2" fill="#B6C2DC" />
-                            //                     <circle cx="15" cy="23.8" r="2" fill="#B6C2DC" />
-                            //                 </svg>
-                            //             </button>
-                            //         </Dropdown.Trigger>
+                                <Dropdown.Content>
+                                    <Dropdown.Link onClick={(e) => Archive(e, post.id)}>
+                                        Скрыть пост
+                                    </Dropdown.Link>
+                                    <button className='className="block w-full text-left text-red-600 text-[14px] px-4 py-2 hover:bg-gray-100 text-red-600"'
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            confirmDelete(e);
+                                        }}
+                                    >
+                                        Удалить
+                                    </button>
+                                </Dropdown.Content>
+                            </Dropdown>)
+                            :
+                            ( <p></p>
+                                // <Dropdown onClick={(e) => { e.stopPropagation(); }}>
+                                //     <Dropdown.Trigger>
+                                //         <button>
+                                //             <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                //                 <circle cx="15" cy="11" r="2" fill="#B6C2DC" />
+                                //                 <circle cx="15" cy="17.4" r="2" fill="#B6C2DC" />
+                                //                 <circle cx="15" cy="23.8" r="2" fill="#B6C2DC" />
+                                //             </svg>
+                                //         </button>
+                                //     </Dropdown.Trigger>
 
-                            //         <Dropdown.Content>
-                            //             <Dropdown.Link onClick={() => {
-                            //     handlePostClick(post, 'claim');
-                            // }}>
-                            //                 Пожаловаться на пост
-                            //             </Dropdown.Link>
-                            //         </Dropdown.Content>
-                            //     </Dropdown>
-                        )
+                                //     <Dropdown.Content>
+                                //         <Dropdown.Link onClick={() => {
+                                //             handlePostClick(post, 'claim');
+                                //         }}>
+                                //             Пожаловаться на пост
+                                //         </Dropdown.Link>
+                                //     </Dropdown.Content>
+                                // </Dropdown>
+                            )
                     )
-                    :
-                    (<p></p>)
-                }
+                        :
+                        (<p></p>)
+                    }
                 </div>
-                <div onClick={() => {
-                    handlePostClick(post, 'info');
-                    setIsModalPostOpen(true)
-                }}
+                <div onClick={(e) => openPost(e, post.id)}
 
                 >
                     {post?.path_img && (
@@ -141,20 +147,20 @@ export const Post = ({ post }) => {
                     )}
                     <div className='mt-3'>
                         <div >
-                            <p className='text-[25px] font-bold text-night pl-2'>{post.title}</p>
+                            <p className='text-[24px] font-bold text-night pl-2'>{post.title}</p>
 
                         </div>
-                        <p className='text-[14px] font-sm text-muted-foreground pl-3'>{post.preview}</p>
+                        <p className="text-[14px] font-normal text-muted-foreground pl-3 line-clamp-3">{post.preview}</p>
 
                     </div>
 
                     <div className='flex flex-col items-start p-2'>
                         {post?.tags?.length > 0 ? (
-                            <div className="flex items-start mt-9 flex-wrap gap-2 mb-2">
+                            <div className="flex items-start flex-wrap gap-2 mb-2">
                                 {post.tags.map((tag) => (
                                     <span
                                         key={tag.id}
-                                        className="px-3 py-1 bg-[#EEEDFF] text-flower text-[12px] font-medium rounded-full"
+                                        className="px-3 py-1 bg-[#7D64DD] text-white text-[13px] font-medium rounded-full"
                                     >
                                         #{tag.title}
                                     </span>
@@ -163,41 +169,41 @@ export const Post = ({ post }) => {
                         ) : (
                             <p className="text-gray-500 text-[12px]">Пользователь не указал теги</p>
                         )}
-                        <p className='text-[14px]'>Уже откликнулось: {post.reports_count || 0}</p>
+                        <p className='text-[13px] text-gray-400 font-regular'>Уже откликнулось: {post.reports_count || 0}</p>
                     </div>
                 </div>
             </div>
             {confirmingDeletion && createPortal(
-  <div className="fixed inset-0 bg-gray-500/75 bg-opacity-50 flex items-center justify-center z-[1000]">
-    <div className="bg-white rounded-3xl p-6 max-w-md w-full">
-      <h2 className="text-[22px] font-medium text-gray-900">
-        Вы уверены, что хотите удалить этот пост?
-      </h2>
-      <p className="text-[15px] font-normal text-gray-500 mt-2">
-        Это действие нельзя будет отменить
-      </p>
-      <div className="mt-6 flex justify-end">
-        <button
-          className="px-4 py-2 bg-gray-200 rounded-md mr-2"
-          onClick={() => setConfirmingDeletion(false)}
-        >
-          Отмена
-        </button>
-        <button
-          onClick={deletePost}
-          disabled={processing}
-          className="px-4 py-2 bg-red-600 text-white rounded-md"
-        >
-          {processing ? 'Удаление...' : 'Удалить'}
-        </button>
-      </div>
-    </div>
-  </div>,
-  document.body
-)}
+                <div className="fixed inset-0 bg-gray-500/75 bg-opacity-50 flex items-center justify-center z-[1000]">
+                    <div className="bg-white rounded-3xl p-6 max-w-md w-full">
+                        <h2 className="text-[22px] font-medium text-gray-900">
+                            Вы уверены, что хотите удалить этот пост?
+                        </h2>
+                        <p className="text-[15px] font-normal text-gray-500 mt-2">
+                            Это действие нельзя будет отменить
+                        </p>
+                        <div className="mt-6 flex justify-end">
+                            <button
+                                className="px-4 py-2 bg-gray-200 rounded-md mr-2"
+                                onClick={() => setConfirmingDeletion(false)}
+                            >
+                                Отмена
+                            </button>
+                            <button
+                                onClick={deletePost}
+                                disabled={processing}
+                                className="px-4 py-2 bg-red-600 text-white rounded-md"
+                            >
+                                {processing ? 'Удаление...' : 'Удалить'}
+                            </button>
+                        </div>
+                    </div>
+                </div>,
+                document.body
+            )}
 
             {/* Модальные окна */}
-            {activePost && modalType === 'info' && createPortal(
+            {/* {activePost && modalType === 'info' && createPortal(
                 <ModalPost
                     post={activePost}
                     onClose={() => {
@@ -207,7 +213,7 @@ export const Post = ({ post }) => {
                     show={isModalPostOpen}
                 />,
                 document.body
-            )}
+            )} */}
 
             {activePost && modalType === 'report' && (
                 <ModalReport

@@ -7,39 +7,52 @@ import Modal from '@/Components/Modal';
 
 export const PostHorizontal = ({ post }) => {
     const [activePost, setActivePost] = useState(null);
-    const [modalType, setModalType] = useState(null);
-    const [isModalPostOpen, setIsModalPostOpen] = useState(false);
-
-    const Archive = (e, postId) => {
-        e.preventDefault();
-        e.stopPropagation();
-        router.post(route('posts.updateArchive', { post: postId }), {
-            preserveScroll: true,
-            onSuccess: () => console.log('Post archived successfully'),
-        });
-    }
-
-    const handlePostClick = (post, type) => {
-        setActivePost(post);
-        setModalType(type);
-    };
-
-    const [confirmingDeletion, setConfirmingDeletion] = useState(false);
-    const { delete: destroy, processing } = useForm();
-
-    const confirmDelete = () => {
-        setConfirmingDeletion(true);
-        e?.stopPropagation();
-    };
-
-    const deletePost = () => {
-        destroy(route('posts.destroy', post.id), {
-            onSuccess: () => setConfirmingDeletion(false),
-        });
-    };
+        const [modalType, setModalType] = useState(null);
+        const [isModalPostOpen, setIsModalPostOpen] = useState(false);
+        const { auth, url } = usePage().props;
+        const user = auth.user;
+    
+        const Archive = (e, postId) => {
+            e.preventDefault();
+            e.stopPropagation();
+            router.post(route('posts.updateArchive', { post: postId }), {
+                preserveScroll: true,
+                onSuccess: () => console.log('Post archived successfully'),
+            });
+        }
+    
+        const openPost = (e, postId) => {
+            e.preventDefault();
+            e.stopPropagation();
+            router.get(route('post', { post: postId }), {
+                preserveScroll: true,
+                onSuccess: () => console.log('Post opened'),
+            });
+        }
+    
+        const handlePostClick = (post, type) => {
+            setActivePost(post);
+            setModalType(type);
+        };
+    
+        const [confirmingDeletion, setConfirmingDeletion] = useState(false);
+        const { delete: destroy, processing } = useForm();
+    
+        const confirmDelete = (e) => {
+            setConfirmingDeletion(true);
+            e?.stopPropagation();
+        };
+    
+        const deletePost = () => {
+            destroy(route('posts.destroy', post.id), {
+                onSuccess: () => setConfirmingDeletion(false),
+                preserveScroll: true,
+                preserveState: true
+            });
+        };
 
     return (
-        <div className="flex gap-5 items-center border-b p-4 w-full bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer"
+        <div className="flex gap-5 items-center border p-4 w-full bg-white rounded-xl transition-all duration-300 cursor-pointer"
         >    
             {post?.path_img && (
                 <div className='w-1/3' onClick={() => {
@@ -73,111 +86,153 @@ export const PostHorizontal = ({ post }) => {
                             </div>
                         </div>
                     </a>
-                    {user ?
-                    (post.user_id === usePage().props.auth.user.id ? (
-                        <Dropdown onClick={(e) => { e.stopPropagation(); }}>
-                            <Dropdown.Trigger>
-                                <button>
-                                    <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="15" cy="11" r="2" fill="#B6C2DC" />
-                                        <circle cx="15" cy="17.4" r="2" fill="#B6C2DC" />
-                                        <circle cx="15" cy="23.8" r="2" fill="#B6C2DC" />
-                                    </svg>
-                                </button>
-                            </Dropdown.Trigger>
-
-                            <Dropdown.Content>
-                                <Dropdown.Link onClick={(e) => Archive(e, post.id)}>
-                                    Скрыть пост
-                                </Dropdown.Link>
-                                <button className='className="block w-full text-left text-red-600 text-[14px] px-4 py-2 hover:bg-gray-100 text-red-600"'
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        confirmDelete(e);
-                                    }}
-                                >
-                                    Удалить
-                                </button>
-                            </Dropdown.Content>
-                        </Dropdown>)
-                        :
-                        (<p></p>)
-                                )
-                    :
-                    (<p></p>)
-                    }
-                </div>
-                <div onClick={() => {
-                    handlePostClick(post, 'info');
-                    setIsModalPostOpen(true)
-                }}>
-                    <div className='mt-1'>
-                        <div >
-                            <p className='text-[22px] font-semibold'>{post.title}</p>
-
+                            {user ? (
+                                post.user_id === usePage().props.auth.user.id ? (
+                                    <Dropdown onClick={(e) => { e.stopPropagation(); }}>
+                                        <Dropdown.Trigger>
+                                            <button>
+                                                <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="15" cy="11" r="2" fill="#B6C2DC" />
+                                                    <circle cx="15" cy="17.4" r="2" fill="#B6C2DC" />
+                                                    <circle cx="15" cy="23.8" r="2" fill="#B6C2DC" />
+                                                </svg>
+                                            </button>
+                                        </Dropdown.Trigger>
+        
+                                        <Dropdown.Content>
+                                            <Dropdown.Link onClick={(e) => Archive(e, post.id)}>
+                                                Скрыть пост
+                                            </Dropdown.Link>
+                                            <button className='className="block w-full text-left text-red-600 text-[14px] px-4 py-2 hover:bg-gray-100 text-red-600"'
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    confirmDelete(e);
+                                                }}
+                                            >
+                                                Удалить
+                                            </button>
+                                        </Dropdown.Content>
+                                    </Dropdown>)
+                                    :
+                                    (
+                                        <Dropdown onClick={(e) => { e.stopPropagation(); }}>
+                                            <Dropdown.Trigger>
+                                                <button>
+                                                    <svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <circle cx="15" cy="11" r="2" fill="#B6C2DC" />
+                                                        <circle cx="15" cy="17.4" r="2" fill="#B6C2DC" />
+                                                        <circle cx="15" cy="23.8" r="2" fill="#B6C2DC" />
+                                                    </svg>
+                                                </button>
+                                            </Dropdown.Trigger>
+        
+                                            <Dropdown.Content>
+                                                <Dropdown.Link onClick={() => {
+                                                    handlePostClick(post, 'claim');
+                                                }}>
+                                                    Пожаловаться на пост
+                                                </Dropdown.Link>
+                                            </Dropdown.Content>
+                                        </Dropdown>
+                                    )
+                            )
+                                :
+                                (<p></p>)
+                            }
                         </div>
-                       
-
-                    </div>
-
-                    <div className='flex flex-col items-start'>
-                        {post?.tags?.length > 0 ? (
-                            <div className="flex items-start mt-4 flex-wrap gap-2 mb-2">
-                                {post.tags.map((tag) => (
-                                    <span
-                                        key={tag.id}
-                                        className="px-3 py-1 bg-[#EEEDFF] text-flower text-[12px] font-medium rounded-full"
-                                    >
-                                        #{tag.title}
-                                    </span>
-                                ))}
+                        <div onClick={(e) => openPost(e, post.id)}
+        
+                        >
+                            <div className='mt-3'>
+                                <div >
+                                    <p className='text-[25px] font-bold text-night pl-2'>{post.title}</p>
+        
+                                </div>
+                                <p className="text-[14px] font-normal text-muted-foreground pl-3 line-clamp-3">{post.preview}</p>
+        
                             </div>
-                        ) : (
-                            <p className="text-gray-500 text-[12px]">Пользователь не указал теги</p>
-                        )}
-                        <p className='text-[14px]'>Уже откликнулось: {post.reports_count || 0}</p>
+        
+                            <div className='flex flex-col items-start p-2'>
+                                {post?.tags?.length > 0 ? (
+                                    <div className="flex items-start flex-wrap gap-2 mb-2">
+                                        {post.tags.map((tag) => (
+                                            <span
+                                                key={tag.id}
+                                                className="px-3 py-1 bg-[#7D64DD] text-white text-[13px] font-medium rounded-full"
+                                            >
+                                                #{tag.title}
+                                            </span>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="text-gray-500 text-[12px]">Пользователь не указал теги</p>
+                                )}
+                                <p className='text-[13px] text-gray-400 font-regular'>Уже откликнулось: {post.reports_count || 0}</p>
+                            </div>
+                        </div>
                     </div>
+                    {confirmingDeletion && createPortal(
+                        <div className="fixed inset-0 bg-gray-500/75 bg-opacity-50 flex items-center justify-center z-[1000]">
+                            <div className="bg-white rounded-3xl p-6 max-w-md w-full">
+                                <h2 className="text-[22px] font-medium text-gray-900">
+                                    Вы уверены, что хотите удалить этот пост?
+                                </h2>
+                                <p className="text-[15px] font-normal text-gray-500 mt-2">
+                                    Это действие нельзя будет отменить
+                                </p>
+                                <div className="mt-6 flex justify-end">
+                                    <button
+                                        className="px-4 py-2 bg-gray-200 rounded-md mr-2"
+                                        onClick={() => setConfirmingDeletion(false)}
+                                    >
+                                        Отмена
+                                    </button>
+                                    <button
+                                        onClick={deletePost}
+                                        disabled={processing}
+                                        className="px-4 py-2 bg-red-600 text-white rounded-md"
+                                    >
+                                        {processing ? 'Удаление...' : 'Удалить'}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>,
+                        document.body
+                    )}
+        
+                    {/* Модальные окна */}
+                    {/* {activePost && modalType === 'info' && createPortal(
+                        <ModalPost
+                            post={activePost}
+                            onClose={() => {
+                                setActivePost(null);
+                                setModalType(null);
+                            }}
+                            show={isModalPostOpen}
+                        />,
+                        document.body
+                    )} */}
+        
+                    {activePost && modalType === 'report' && (
+                        <ModalReport
+                            post_id={activePost.id}
+                            onClose={() => {
+                                setActivePost(null);
+                                setModalType(null);
+                            }}
+                        />
+                    )}
+        
+                    {activePost && modalType === 'claim' && createPortal(
+                        <ModalClaim
+                            post_id={activePost.id}
+                            onClose={() => {
+                                setActivePost(null);
+                                setModalType(null);
+                            }}
+                        />,
+                        document.body
+                    )}
                 </div>
-            </div>
-            <Modal show={confirmingDeletion} onClose={() => setConfirmingDeletion(false)}>
-                <div className="p-6">
-                    <h2 className="text-[22px] font-medium text-gray-900">
-                        Вы уверены, что хотите удалить этот пост?
-                    </h2>
-                    <p className="text-[15px] font-normal text-gray-500"> Это действие нельзя будет отменить</p>
-                    <div className="mt-6 flex justify-end">
-                        <button
-                            className="px-4 py-2 bg-gray-200 rounded-md mr-2"
-                            onClick={() => setConfirmingDeletion(false)}
-                        >
-                            Отмена
-                        </button>
-                        <button
-                            onClick={deletePost}
-                            disabled={processing}
-                            className="px-4 py-2 bg-red-600 text-white rounded-md"
-                        >
-                            {processing ? 'Удаление...' : 'Удалить'}
-                        </button>
-                    </div>
-                </div>
-            </Modal>
-
-            {/* Модальные окна */}
-            {activePost && modalType === 'info' && (
-                <ModalPost
-                    post={activePost}
-                    onClose={() => setActivePost(null)}
-                    show={isModalPostOpen}
-                />
-            )}
-
-            {activePost && modalType === 'report' && (
-                <ModalReport
-                    post_id={activePost.id}
-                    onClose={() => setActivePost(null)}
-                />
-            )}
-        </div>
     )
 }

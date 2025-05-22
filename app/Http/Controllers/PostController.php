@@ -16,10 +16,6 @@ class PostController extends Controller
     //выгрузка всех постов
     public function index()
     {
-        $posts=Post::with('tags', 'user:id,username,login,path_img')
-        ->latest()
-        ->get();
-
         $user=Auth::user();
 
         $userPosts = Post::where('user_id', $user->id)
@@ -27,6 +23,22 @@ class PostController extends Controller
         ->latest()
         ->take(4)
         ->get();
+
+        $userTagIds = $user->tags()->pluck('tags.id');
+        $followingIds = $user->followings()->pluck('users.id');
+        $followingIds->push($user->id);
+        
+        $posts = Post::with(['user', 'tags'])
+            ->where(function($query) use ($userTagIds, $followingIds) {
+                // Посты с тегами пользователя
+                $query->whereHas('tags', function($q) use ($userTagIds) {
+                    $q->whereIn('tags.id', $userTagIds);
+                })
+                // ИЛИ посты от пользователей, на которых подписан
+                ->orWhereIn('user_id', $followingIds);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         return Inertia::render('Dashboard', [
             'posts' => $posts,
@@ -45,7 +57,7 @@ class PostController extends Controller
 
     public function challengesGuest()
     {
-        $posts=Post::with('tags', 'user:id,username,login,path_img')->get();
+        $posts=Post::with('tags', 'user:id,username,login,path_img')->latest()->get();
 
         return Inertia::render('Challenges', [
             'posts' => $posts
@@ -187,5 +199,12 @@ class PostController extends Controller
 
         return redirect()->route('dashboard')
             ->with('success', 'Пост удален');
+    }
+
+     public function getPost(Post $post)
+    {
+        return Inertia::render('PostPage', [
+            'post' => $post->load('user')
+        ]);
     }
 }

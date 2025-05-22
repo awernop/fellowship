@@ -21,7 +21,7 @@ export default {
               colors: {
                 elephant: '#f5f6f9',
                 night: '#303236',
-                flower: '#BEDB2F',
+                flower: '#8F79E4',
                 bloom: '#564be9',
               },
         },

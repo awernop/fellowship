@@ -35,7 +35,7 @@ class SubscriptionController extends Controller
     
     public function check(User $user)
     {
-       return Inertia::render('YourPage', [
+       return Inertia::render('UserProfile', [
     'isFollowing' => auth()->user()->isFollowing($user)
   ]);
     }

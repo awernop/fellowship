@@ -29,13 +29,13 @@ export const FollowButton = ({ userId }) => {
     <button 
       onClick={handleFollow}
       disabled={isLoading}
-      className={`px-4 py-2 rounded-md ${
+      className={`px-12 py-[10px] rounded-full transition duration-150 ease-in-out font-semibold text-[14px] ${
         isFollowing 
           ? 'bg-gray-200 text-gray-800 hover:bg-gray-300' 
-          : 'bg-blue-600 text-white hover:bg-blue-700'
+          : 'bg-night text-white hover:bg-[#37393F]'
       }`}
     >
-      {isLoading ? 'Loading...' : isFollowing ? 'Unfollow' : 'Follow'}
+      {isLoading ? 'Загрузка...' : isFollowing ? 'Отписаться' : 'Подписаться'}
     </button>
   );
 };

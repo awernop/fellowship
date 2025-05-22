@@ -14,16 +14,13 @@ export default function Thematic() {
     return (
         <AuthenticatedLayout>
             <Head title={`${tag.title}`} />
-            <div className="flex h-[calc(100vh-100px)] bg-gray-100">
+            <div className="flex h-screen bg-[#F8F7FB]">
                 {/* Зафиксированная часть */}
-                <div className="w-65 flex-shrink-0 pt-3 sticky top-0 border m-2 bg-white rounded-3xl">
+                <div className="w-65 flex-shrink-0 pt-3 sticky top-0 bg-[#F8F7FB]">
                     <SideNavigation />
                 </div>
                 {/* Часть с прокруткой */}
                 <div className="flex flex-col gap-3 w-full overflow-y-auto m-2">
-                    <div className="w-full rounded-3xl bg-gradient-to-b from-[#e1f28d] via-[#d6f251] via-[18.75%] via-[#d3ee4d] via-[81.73%] to-[#c1dd40] h-[250px] ">
-
-                    </div>
                     <div className='flex items-center justify-between w-full px-9 p-6'>
                         <div>
                             <p className='text-[22px] font-semibold'>{`Посты по теме: ${tag.title}`}</p>

@@ -1,11 +1,13 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, usePage, router, useForm } from '@inertiajs/react';
-import UserSideNavigation from "@/Components/UserSideNavigation";
+import SideNavigation from "@/Components/SideNavigation";
 
 export default function ReportsToMyPosts() {
     const { user, posts, reports } = usePage().props;
     const { reload } = usePage();
-
+    const { auth, user: profileUser } = usePage().props;
+        const currentUser = auth.user;
+        
     const Reject = (e, reportId) => {
         e.preventDefault();
         e.stopPropagation();
@@ -68,23 +70,37 @@ export default function ReportsToMyPosts() {
     return (
         <AuthenticatedLayout>
             <Head title={`Мои отклики на посты`} />
-            <div className="flex h-[calc(100vh-100px)] bg-gray-50">
+            <div className="flex h-screen bg-[#F8F7FB]">
                 {/* Зафиксированная часть */}
-                <div className="w-60 flex-shrink-0 pt-3 sticky top-0 border-r bg-white">
-                    <UserSideNavigation />
-                </div>
+                                <div className="w-65 flex-shrink-0 pt-3 sticky top-0 bg-[#F8F7FB] overflow-y-auto ">
+                                                    <SideNavigation />
+                                                </div>
                 {/* Часть с прокруткой */}
-                <div className="flex flex-col flex-wrap gap-3 w-full overflow-y-auto">
-                    <div className='flex items-center justify-between w-full px-9 p-6'>
-                        <div>
-                            <p className='text-[22px] font-semibold'>Отклики на ваши посты</p>
-                            <p className='text-[15px] font-normal'>Здесь хранится история откликов на выши посты</p>
-                        </div>
-                    </div>
-                    <div className="">
-                        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                            <div className="flex flex-wrap items-start gap-3 gap-y-3 overflow-hidden sm:rounded-lg">
-                                {reports.map((item) => {
+                <div className="max-w-7xlmy-6 px-4 flex flex-col gap-3 w-full overflow-y-auto pb-10 mx-2 mt-6">
+                                    <div className="py-8 w-full bg-white border rounded-xl sm:px-6 lg:px-8">
+                                        <div className="flex items-center gap-5">
+                                            {profileUser?.path_img && (
+                                                <img
+                                                    src={`/images/${profileUser.path_img}`}
+                                                    alt="user pfp"
+                                                    className="w-[70px] mb-1 rounded-lg"
+                                                />
+                                            )}
+                                            <div className="w-full flex items-center justify-between">
+                                                <div className="flex flex-col mb-2">
+                                                    <span className="text-[22px] font-semibold select-none text-[#57595C]">
+                                                        {profileUser.username}
+                                                    </span>
+                                                    <span className="text-[15px] mt-[-4px] font-medium select-none text-gray-500">
+                                                        @{profileUser.login}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col lg:flex-row gap-3">
+                                        {/* Блок постов */}
+                                          {reports.map((item) => {
                                     const status = getStatusStyles(item.approved);
                                     return (
                                         <div key={item.id} className="flex flex-col p-4 border-b w-[430px] bg-white rounded-md ">
@@ -126,10 +142,8 @@ export default function ReportsToMyPosts() {
                                 }
                                 )
                                 }
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                    </div>
+                                </div>
             </div>
 
         </AuthenticatedLayout>
