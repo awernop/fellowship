@@ -56,8 +56,9 @@ export const Post = ({ post }) => {
     return (
         <div className="flex flex-col h-[590px] border w-[32%] bg-white rounded-xl shadow-sm transition-all duration-300 cursor-pointer m-1"
         >
-            <div className='p-3 pt-4 flex flex-col justify-between'>
-                <div className='flex justify-between mb-3 px-2'>
+            <div className='p-3 pt-4 h-full flex flex-col justify-between'>
+                <div>
+                    <div className='flex justify-between mb-3 px-2'>
                     <a href={route('users.posts', { login: post.user.login })}>
                         <div className='flex items-center gap-2' onClick={(e) => { e.stopPropagation(); }}>
                             {post.user?.path_img && (
@@ -154,7 +155,10 @@ export const Post = ({ post }) => {
 
                     </div>
 
-                    <div className='flex flex-col items-start p-2'>
+                    
+                </div>
+                </div>
+                <div className='flex flex-col items-start p-2'>
                         {post?.tags?.length > 0 ? (
                             <div className="flex items-start flex-wrap gap-2 mb-2">
                                 {post.tags.map((tag) => (
@@ -171,7 +175,6 @@ export const Post = ({ post }) => {
                         )}
                         <p className='text-[13px] text-gray-400 font-regular'>Уже откликнулось: {post.reports_count || 0}</p>
                     </div>
-                </div>
             </div>
             {confirmingDeletion && createPortal(
                 <div className="fixed inset-0 bg-gray-500/75 bg-opacity-50 flex items-center justify-center z-[1000]">
@@ -203,17 +206,6 @@ export const Post = ({ post }) => {
             )}
 
             {/* Модальные окна */}
-            {/* {activePost && modalType === 'info' && createPortal(
-                <ModalPost
-                    post={activePost}
-                    onClose={() => {
-                        setActivePost(null);
-                        setModalType(null);
-                    }}
-                    show={isModalPostOpen}
-                />,
-                document.body
-            )} */}
 
             {activePost && modalType === 'report' && (
                 <ModalReport

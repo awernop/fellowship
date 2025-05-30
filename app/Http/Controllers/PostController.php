@@ -48,7 +48,8 @@ class PostController extends Controller
 
     public function welcome()
     {
-        $posts=Post::with('tags', 'user:id,username,login,path_img')->get();
+        $posts=Post::with('tags', 'user:id,username,login,path_img')
+        ->get();
 
         return Inertia::render('Welcome', [
             'posts' => $posts

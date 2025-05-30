@@ -84,8 +84,8 @@ export default function ModalReport({ post_id, onClose }) {
           </div>
 
           <div className="mt-4 flex items-center justify-end">
-            <PrimaryButton className="ms-4" disabled={processing}>
-              {processing ? 'Отправка...' : 'ОТПРАВИТЬ'}
+            <PrimaryButton className="ms-4 px-8" disabled={processing}>
+              {processing ? 'Отправка...' : 'Отправить'}
             </PrimaryButton>
           </div>
         </form>

@@ -91,13 +91,13 @@ export default function PostPage({ }) {
                                                                 </div>
                                                             ) : (
                                                                 <button
-                                                                    className="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-350"
+                                                                    className="inline-flex items-center px-[20%] py-2 bg-night border border-transparent rounded-md font-semibold text-[14px] text-white hover:bg-[#363e4f] focus:bg-[#363e4f] active:bg-[#363e4f]transition ease-in-out duration-350 mt-5"
                                                                     onClick={(e) => {
                                                                         e.stopPropagation();
                                                                         handlePostClick(post, 'report');
                                                                     }}
                                                                 >
-                                                                    У МЕНЯ ЕСТЬ ИДЕЯ
+                                                                    У меня есть идея!
                                                                 </button>
                                                             ))
                                                             :
