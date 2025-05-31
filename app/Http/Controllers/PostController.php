@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Tag;
 use Inertia\Inertia;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -48,8 +49,11 @@ class PostController extends Controller
 
     public function welcome()
     {
-        $posts=Post::with('tags', 'user:id,username,login,path_img')
-        ->get();
+        $posts = Post::with('tags', 'user:id,username,login,path_img')
+            ->get()
+            ->each(function ($post) {
+                $post->created_at_format = \Carbon\Carbon::parse($post->created_at)->translatedFormat('d F y');
+            });
 
         return Inertia::render('Welcome', [
             'posts' => $posts

@@ -10,7 +10,7 @@ import { FollowButton } from '@/Components/FollowButton';
 
 export default function UserProfile() {
     const { user, posts } = usePage().props;
-    const [displayFormat, setDisplayFormat] = useState('cards');
+    const [displayFormat, setDisplayFormat] = useState('table');
     const [activePost, setActivePost] = useState(null);
     const [modalType, setModalType] = useState(null);
 
@@ -58,7 +58,7 @@ export default function UserProfile() {
                                     <span className="text-[22px] font-semibold select-none text-[#57595C]">
                                         {profileUser.username}
                                     </span>
-                                    <span className="text-[15px] mt-[-4px] font-medium select-none text-gray-500">
+                                    <span className="text-[15px] mt-[-4px] select-none text-[#57595C] font-medium opacity-60">
                                         @{profileUser.login}
                                     </span>
                                 </div>
@@ -139,7 +139,7 @@ export default function UserProfile() {
                             </div>
                             <div className="mt-3">
                                 {displayFormat === 'cards' ? (
-                                    <div className="flex flex-wrap gap-3">
+                                    <div className="flex flex-wrap gap-1">
                                         {filteredPosts.length > 0 ? (
                                                                                 filteredPosts.map((item) => (
                                                                                     <Post post={item} key={item.id} />

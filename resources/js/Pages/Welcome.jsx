@@ -6,7 +6,8 @@ import GuestMainLayout from '../Layouts/GuestMainLayout';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Post } from '@/Components/Post';
 import SideNavigation from '@/Components/SideNavigation';
-import image from '../../../public/images/bgwelcome.jpg'
+import image from '../../../public/images/bgwelcome.jpg';
+import { ThemsOnWelcome } from '@/Components/ThemsOnWelcome';
 
 
 export default function Welcome({ posts }) {
@@ -50,6 +51,9 @@ export default function Welcome({ posts }) {
                                 href="#"
                                 className='text-white font-semibold text-[15px] hover:bg-[#F0EDFF] py-[10px] px-10 hover:bg-opacity-20 rounded-xl transition duration-500 ease-in-out'>Подробнее о проекте</a>
                         </div>
+                    </div>
+                    <div>
+                        <ThemsOnWelcome/>
                     </div>
                     <div>
                         <div className="flex flex-wrap items-start overflow-hidden sm:rounded-lg">

@@ -15,7 +15,7 @@ export const UsersList = ({users, format}) => {
                                 />
                 <div>
                     <p className="text-[18px] font-medium">{item.username}</p>
-                    <p className="text-[14px] mt-[-4px]">@{item.login}</p>
+                    <p className="text-[14px] mt-[-4px] text-[#57595C] font-medium opacity-60">@{item.login}</p>
                     <p>{item.email}</p>
                 </div>
                 </div>

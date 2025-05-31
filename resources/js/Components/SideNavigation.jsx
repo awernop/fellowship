@@ -1,6 +1,7 @@
 import { Link, usePage } from "@inertiajs/react";
 import ApplicationLogoMini from "./ApplicationLogoMini";
 import Dropdown from "./Dropdown";
+import { useState } from "react";
 
 export default function SideNavigation() {
     const { auth, url } = usePage().props;
@@ -14,6 +15,9 @@ export default function SideNavigation() {
     const isActiveURL = (route) => {
         return url.startsWith(route);
     };
+
+    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const [isTopBannerVisible, setIsTopBannerVisible] = useState(true);
 
     return (
         <div className='w-full'>

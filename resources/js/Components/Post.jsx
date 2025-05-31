@@ -164,7 +164,7 @@ export const Post = ({ post }) => {
                                 {post.tags.map((tag) => (
                                     <span
                                         key={tag.id}
-                                        className="px-3 py-1 bg-[#7D64DD] text-white text-[13px] font-medium rounded-full"
+                                        className="px-3 py-1 bg-[#8F79E4] opacity-80 text-white text-[13px] font-medium rounded-full"
                                     >
                                         #{tag.title}
                                     </span>
@@ -173,7 +173,10 @@ export const Post = ({ post }) => {
                         ) : (
                             <p className="text-gray-500 text-[12px]">Пользователь не указал теги</p>
                         )}
-                        <p className='text-[13px] text-gray-400 font-regular'>Уже откликнулось: {post.reports_count || 0}</p>
+                        <div className='flex w-full justify-between'>
+                            <p className='text-[13px] text-gray-400 font-regular'>Уже откликнулось: {post.reports_count || 0}</p>
+                            <p className='text-[13px] text-gray-400 font-regular'>{post.created_at_format}</p>
+                        </div>
                     </div>
             </div>
             {confirmingDeletion && createPortal(
