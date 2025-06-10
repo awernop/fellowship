@@ -6,7 +6,7 @@ export const UsersList = ({users, format}) => {
         {format === 'cards' ? (
             <div className="flex items-start flex-wrap gap-3 ">
             {users.map((item) => (
-               <div key={item.id} className="flex flex-col p-4 border-b w-[360px] bg-white rounded-md ">
+               <div key={item.id} className="flex flex-col p-4 border w-[360px] bg-white rounded-md ">
                 <div className="flex items-center gap-3">
                 <img
                                     src={`/images/${item.path_img}`}

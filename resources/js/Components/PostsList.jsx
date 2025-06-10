@@ -3,69 +3,80 @@ export const PostsList = ({ posts, format }) => {
         <>
             {format === 'cards' ? (
                 <div className="flex flex-wrap items-start gap-3 ">
-                    {posts.map((item) => (
-                        <div className="flex flex-col border-b w-[360px] bg-white rounded-md shadow-md hover:bg-gray-50 transition-all duration-300 cursor-pointer"
-                        >
-                            {item?.path_img && (
-                                <div className='relative w-full '>
-                                    <img
-                                        src={`/images/${item.path_img}`}
-                                        alt="Work image"
-                                        className='rounded-t-md'
-                                    />
-                                </div>
-
-                            )}
-                            <div className='p-4'>
-                                <div className='flex justify-between'>
-                                    <a href={route('users.posts', { login: item.user.login })}>
-                                        <div className='flex items-center gap-1' onClick={(e) => { e.stopPropagation(); }}>
-                                            {item.user?.path_img && (
-                                                <img
-                                                    src={`/images/${item.user.path_img}`}
-                                                    alt="user pfp"
-                                                    className="w-[25px] mb-1"
-                                                />
-                                            )}
-                                            <div>
-                                                <p className='text-[15px] font-medium'>{item.user.username}</p>
-                                                <p className='text-[14px] mt-[-4px]'>@{item.user.login}</p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div
-
+                    {posts.map((post) => (
+                        <div className="flex flex-col h-[590px] border w-[30%] bg-white rounded-xl shadow-sm transition-all duration-300 cursor-pointer m-1"
                                 >
-                                    <div>
-                                        <div >
-                                            <p className='text-[22px] font-semibold'>{item.title}</p>
-
+                                    <div className='p-3 pt-4 h-full flex flex-col justify-between'>
+                                        <div>
+                                            <div className='flex justify-between mb-3 px-2'>
+                                            <a href={route('users.posts', { login: post.user.login })}>
+                                                <div className='flex items-center gap-2' onClick={(e) => { e.stopPropagation(); }}>
+                                                    {post.user?.path_img && (
+                                                        <div>
+                                                            <img
+                                                                src={`/images/${post.user.path_img}`}
+                                                                alt="user pfp"
+                                                                className="w-[35px] rounded-md object-cover"
+                                                            />
+                                                        </div>
+                                                    )}
+                                                    <div>
+                                                        <p className='text-[15px] font-semibold text-[#57595C]'>{post.user.username}</p>
+                                                        <p className='text-[14px] mt-[-4px] text-[#57595C] font-medium opacity-60'>@{post.user.login}</p>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
-                                        <p className='text-[14px] font-sm text-muted-foreground'>{item.preview}</p>
-
-                                    </div>
-
-                                    <div className='flex flex-col items-start'>
-                                        {item?.tags?.length > 0 ? (
-                                            <div className="flex items-start mt-12 flex-wrap gap-2 mb-2">
-                                                {item.tags.map((tag) => (
-                                                    <span
-                                                        key={tag.id}
-                                                        className="px-3 py-1 bg-[#EEEDFF] text-flower text-sm font-medium rounded-full"
-                                                    >
-                                                        {tag.title}
-                                                    </span>
-                                                ))}
+                                        <div onClick={(e) => openPost(e, post.id)}
+                        
+                                        >
+                                            {post?.path_img && (
+                                                <div className='relative w-full ' onClick={() => {
+                                                    handlePostClick(post, 'info');
+                                                    setIsModalPostOpen(true)
+                                                }}>
+                                                    <img
+                                                        src={`/images/${post.path_img}`}
+                                                        alt="Work image"
+                                                        className='rounded-xl'
+                                                    />
+                                                </div>
+                        
+                                            )}
+                                            <div className='mt-3'>
+                                                <div >
+                                                    <p className='text-[24px] font-bold text-night pl-2'>{post.title}</p>
+                        
+                                                </div>
+                                                <p className="text-[14px] font-normal text-muted-foreground pl-3 line-clamp-3">{post.preview}</p>
+                        
                                             </div>
-                                        ) : (
-                                            <p className="text-gray-500 text-sm">Пользователь не указал теги</p>
-                                        )}
-                                        <p className='text-[14px]'>Уже откликнулось: {item.reports_count || 0}</p>
+                        
+                                            
+                                        </div>
+                                        </div>
+                                        <div className='flex flex-col items-start p-2'>
+                                                {post?.tags?.length > 0 ? (
+                                                    <div className="flex items-start flex-wrap gap-2 mb-2">
+                                                        {post.tags.map((tag) => (
+                                                            <span
+                                                                key={tag.id}
+                                                                className="px-3 py-1 bg-[#8F79E4] opacity-80 text-white text-[13px] font-medium rounded-full"
+                                                            >
+                                                                #{tag.title}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                ) : (
+                                                    <p className="text-gray-500 text-[12px]">Пользователь не указал теги</p>
+                                                )}
+                                                <div className='flex w-full justify-between'>
+                                                    <p className='text-[13px] text-gray-400 font-regular'>Уже откликнулось: {post.reports_count || 0}</p>
+                                                    <p className='text-[13px] text-gray-400 font-regular'>{post.created_at_format}</p>
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
                     ))}
                 </div>
             )

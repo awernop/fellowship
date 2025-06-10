@@ -4,7 +4,7 @@ export const ReportsList = ({ reports, format }) => {
             {format === 'cards' ? (
                 <div className="flex items-start flex-wrap gap-3 ">
                     {reports.map((item) => (
-                        <div key={item.id} className="flex flex-col p-4 border-b w-[360px] bg-white rounded-md ">
+                        <div key={item.id} className="flex flex-col p-4 border w-[360px] bg-white rounded-md ">
                             <div className="flex items-center gap-3">
                                 <div className="w-full">
                                     <div className="bg-[#EEEDFF] p-2 pl-4 w-full rounded-md mb-4">
@@ -13,7 +13,7 @@ export const ReportsList = ({ reports, format }) => {
                                     </div>
                                     <div className="">
                                         <p className="text-[18px] mt-[-4px] font-semibold">{item.user.username}</p>
-                                        <p className="text-[15px] mt-[-4px]">@{item.user.login}</p>
+                                        <p className="text-[15px] mt-[-4px] text-[#57595C] opacity-60">@{item.user.login}</p>
                                     </div>
                                     {item.message ? (<p>{item.message}</p>) : (<p className="italic font-light text-gray-400">Пользователь не оставил сообщения</p>)}
                                 </div>

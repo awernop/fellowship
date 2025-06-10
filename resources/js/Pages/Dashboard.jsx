@@ -1,13 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import React, { useState } from 'react';
-import { Head, router, usePage } from '@inertiajs/react';
-import ModalReport from '@/Components/ModalReport';
-import ModalPost from '@/Components/ModalPost';
+import { Head, usePage } from '@inertiajs/react';
 import { Post } from '@/Components/Post';
-import SideNavigation from '@/Components/SideNavigation';
 import { PostHorizontal } from '@/Components/PostHorizontal';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
 
 export default function Dashboard({ }) {
     const [displayFormat, setDisplayFormat] = useState('cards');
@@ -21,13 +16,7 @@ export default function Dashboard({ }) {
     return (
         <AuthenticatedLayout>
             <Head title="Главная" />
-            <div className="flex h-screen bg-[#F8F7FB]">
-                {/* Зафиксированная часть */}
-                <div className="w-55 flex-shrink-0 pt-3 sticky top-0 bg-[#F8F7FB]">
-                    <SideNavigation />
-                </div>
-                {/* Часть с прокруткой */}
-                <div className="flex flex-col w-full overflow-y-auto pb-10">
+                <div className="flex flex-col w-full">
                     <div className="flex flex-col items-start space-x-2 pt-6 px-2">
                         <div className='mb-5 w-full '>
                             <div className='flex items-center justify-between'>
@@ -119,9 +108,6 @@ export default function Dashboard({ }) {
                         </div>
                     </div>
                 </div>
-
-            </div>
-
         </AuthenticatedLayout>
     );
 }

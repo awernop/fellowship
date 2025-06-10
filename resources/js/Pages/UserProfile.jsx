@@ -5,7 +5,6 @@ import ModalReport from '@/Components/ModalReport';
 import ModalPost from '@/Components/ModalPost';
 import { Post } from '@/Components/Post';
 import { PostHorizontal } from '@/Components/PostHorizontal';
-import SideNavigation from '@/Components/SideNavigation';
 import { FollowButton } from '@/Components/FollowButton';
 
 export default function UserProfile() {
@@ -37,13 +36,7 @@ export default function UserProfile() {
             }
         >
             <Head title={`Профиль ${user.username}`} />
-            <div className="flex h-screen bg-[#F8F7FB]">
-                {/* Зафиксированная боковая панель */}
-                <div className="w-65 flex-shrink-0 pt-3 sticky top-0 bg-[#F8F7FB] overflow-y-auto ">
-                    <SideNavigation />
-                </div>
-                {/* Прокручиваемый контент */}
-                <div className="max-w-7xlmy-6 px-4 flex flex-col gap-3 w-full overflow-y-auto pb-10 mx-2 mt-6">
+                <div className="max-w-7xlmy-6 px-4 flex flex-col gap-3">
                     <div className="py-8 w-full bg-white border rounded-xl sm:px-6 lg:px-8">
                         <div className="flex items-center gap-5">
                             {profileUser?.path_img && (
@@ -194,7 +187,6 @@ export default function UserProfile() {
                         onClose={() => setActivePost(null)}
                     />
                 )}
-            </div>
         </AuthenticatedLayout>
     );
 }

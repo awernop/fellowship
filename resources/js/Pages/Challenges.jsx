@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import { Head, usePage, router } from '@inertiajs/react';
-import ModalReport from '@/Components/ModalReport';
-import ModalPost from '@/Components/ModalPost';
-import GuestMainLayout from '../Layouts/GuestMainLayout';
+import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Post } from '@/Components/Post';
-import SideNavigation from '@/Components/SideNavigation';
 import { PostHorizontal } from '@/Components/PostHorizontal';
 
 
@@ -24,13 +20,7 @@ export default function Challenges({ posts }) {
     return (
         <AuthenticatedLayout>
             <Head title="Вызовы" />
-            <div className="flex h-screen bg-[#F8F7FB]">
-                {/* Зафиксированная часть */}
-                <div className="w-55 flex-shrink-0 pt-3 sticky top-0 bg-[#F8F7FB]">
-                    <SideNavigation />
-                </div>
-                {/* Часть с прокруткой */}
-                <div className="flex flex-col gap-3 w-full overflow-y-auto pb-10 mx-2 mt-6">
+                <div className="flex flex-col gap-3">
                     <div className="flex justify-between gap-3 w-full p-3 bg-white rounded-xl border ">
                         <div className='w-[50%] flex px-4 items-center border border-gray-200 rounded-lg transition duration-300 ease-in-out'>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,8 +90,6 @@ export default function Challenges({ posts }) {
                         </div>
                     </div>
                 </div>
-
-            </div>
         </AuthenticatedLayout>
     );
 }

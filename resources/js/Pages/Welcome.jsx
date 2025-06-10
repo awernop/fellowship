@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import { Head, usePage, router } from '@inertiajs/react';
-import ModalReport from '@/Components/ModalReport';
-import ModalPost from '@/Components/ModalPost';
-import GuestMainLayout from '../Layouts/GuestMainLayout';
+import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Post } from '@/Components/Post';
-import SideNavigation from '@/Components/SideNavigation';
 import image from '../../../public/images/bgwelcome.jpg';
 import { ThemsOnWelcome } from '@/Components/ThemsOnWelcome';
 
@@ -16,13 +12,7 @@ export default function Welcome({ posts }) {
     return (
         <AuthenticatedLayout>
             <Head title="Главная" />
-            <div className="flex h-screen bg-[#F8F7FB]">
-                {/* Зафиксированная часть */}
-                <div className="w-55 flex-shrink-0 pt-3 sticky top-0 bg-[#F8F7FB]">
-                    <SideNavigation />
-                </div>
-                {/* Часть с прокруткой */}
-                <div className="flex flex-col gap-3 w-full overflow-y-auto pb-10 mx-2 my-6">
+                <div className="flex flex-col gap-3">
                     <div className='w-full rounded-xl p-[80px] '
                         style={{
                             backgroundImage: `url(${image})`,
@@ -73,8 +63,6 @@ export default function Welcome({ posts }) {
                         
                     </div>
                 </div>
-
-            </div>
         </AuthenticatedLayout>
     );
 }

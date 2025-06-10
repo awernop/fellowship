@@ -3,7 +3,6 @@ import { usePage } from "@inertiajs/react";
 import { Post } from "@/Components/Post";
 import { PostHorizontal } from "@/Components/PostHorizontal";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import SideNavigation from "@/Components/SideNavigation";
 import { Head } from '@inertiajs/react';
 
 export default function Thematic() {
@@ -14,13 +13,7 @@ export default function Thematic() {
     return (
         <AuthenticatedLayout>
             <Head title={`${tag.title}`} />
-            <div className="flex h-screen bg-[#F8F7FB]">
-                {/* Зафиксированная часть */}
-                <div className="w-65 flex-shrink-0 pt-3 sticky top-0 bg-[#F8F7FB]">
-                    <SideNavigation />
-                </div>
-                {/* Часть с прокруткой */}
-                <div className="flex flex-col gap-3 w-full overflow-y-auto m-2">
+                <div className="flex flex-col gap-3">
                     <div className='flex items-center justify-between w-full px-9 p-6'>
                         <div>
                             <p className='text-[22px] font-semibold'>{`Посты по теме: ${tag.title}`}</p>
@@ -76,9 +69,6 @@ export default function Thematic() {
                         </div>
                     </div>
                 </div>
-
-            </div>
-
         </AuthenticatedLayout>
     );
 }
