@@ -52,21 +52,28 @@ export const PostHorizontal = ({ post }) => {
         };
 
     return (
-        <div className="flex gap-5 items-center border p-4 w-full bg-white rounded-xl transition-all duration-300 cursor-pointer"
+        <div className="flex gap-5 items-center p-4 w-full bg-white rounded-xl transition-all duration-300 cursor-pointer shadow-[1px_1px_3px_rgba(163,177,198,0.2),-8px_-8px_10px_rgba(255,255,255,0.2)]"
         >    
             {post?.path_img && (
-                <div className='w-1/3' onClick={() => {
-                    handlePostClick(post, 'info');
-                    setIsModalPostOpen(true)
-                }}>
-                    <img
-                        src={`/images/${post.path_img}`}
-                        alt="Work image"
-                        className='rounded-2xl'
-                    />
-                </div>
+                                    <div className='relative' onClick={() => {
+                                        handlePostClick(post, 'info');
+                                        setIsModalPostOpen(true)
+                                    }}>
+                                        <div
+                                            className='rounded-lg border'
+                                            style={{
+                                                backgroundImage: `url(/images/${post.path_img})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center',
+                                                backgroundRepeat: 'no-repeat',
+                                                width: '20vw',
+                                                height: '12vw',
+                                                maxHeight: '100%',
+                                            }}>
+                                        </div>
+                                    </div>
 
-            )}
+                                )}
             <div className='flex flex-col justify-between w-full'>
                 <div className='flex justify-between'>
                     <a href={route('users.posts', { login: post.user.login })}>
@@ -76,13 +83,13 @@ export const PostHorizontal = ({ post }) => {
                                     <img
                                         src={`/images/${post.user.path_img}`}
                                         alt="user pfp"
-                                        className="w-[27px] mb-1 rounded-full object-cover"
+                                        className="w-[27px] rounded-full object-cover"
                                     />
                                 </div>
                             )}
                             <div>
-                                <p className='text-[15px] font-medium'>{post.user.username}</p>
-                                <p className='text-[14px] mt-[-4px]'>@{post.user.login}</p>
+                                <p className='text-[15px] font-semibold text-[#57595C]'>{post.user.username}</p>
+                                <p className='text-[14px] mt-[-4px] text-gray-500 font-regular opacity-80'>@{post.user.login}</p>
                             </div>
                         </div>
                     </a>
@@ -143,24 +150,24 @@ export const PostHorizontal = ({ post }) => {
                         <div onClick={(e) => openPost(e, post.id)}
         
                         >
-                            <div className='mt-3'>
+                            <div className='mt-1'>
                                 <div >
-                                    <p className='text-[25px] font-bold text-night pl-2'>{post.title}</p>
+                                    <p className='text-[20px] font-bold text-night text-muted-foreground line-clamp-2'>{post.title}</p>
         
                                 </div>
-                                <p className="text-[14px] font-normal text-muted-foreground pl-3 line-clamp-3">{post.preview}</p>
+                                <p className="text-[15px] text-gray-500 font-medium text-muted-foreground line-clamp-1">{post.preview}</p>
         
                             </div>
         
-                            <div className='flex flex-col items-start p-2'>
+                            <div className='flex flex-col items-start mt-3'>
                                 {post?.tags?.length > 0 ? (
                                     <div className="flex items-start flex-wrap gap-2 mb-2">
                                         {post.tags.map((tag) => (
                                             <span
                                                 key={tag.id}
-                                                className="px-3 py-1 bg-[#7D64DD] text-white text-[13px] font-medium rounded-full"
+                                                className="px-4 py-1 bg-[#ede6ff] opacity-80 text-[#715BC8] text-[13px] font-bold rounded-lg"
                                             >
-                                                #{tag.title}
+                                                {tag.title}
                                             </span>
                                         ))}
                                     </div>

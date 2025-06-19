@@ -1,5 +1,3 @@
-import logo from '../../images/лого.png';
-
 export default function ApplicationLogo(props) {
     return (
         <div className="mb-[13px]">

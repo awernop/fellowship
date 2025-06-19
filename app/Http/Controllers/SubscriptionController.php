@@ -13,30 +13,32 @@ use Inertia\Inertia;
 
 class SubscriptionController extends Controller
 {
-    public function subscribe(User $user)
+    // Подписаться
+    public function subscribe(Request $request, User $user)
     {
-        $currentUser = auth()->user();
-        
+        $currentUser = $request->user();
+
         if ($currentUser->id === $user->id) {
-            return response()->json(['error' => 'Cannot subscribe to yourself'], 422);
+            return back()->with('error', 'Нельзя подписаться на самого себя!');
         }
-        
+
         $currentUser->followings()->syncWithoutDetaching([$user->id]);
-        
-        return redirect()->back();
+
+        return back()->with('success', 'Подписка оформлена!');
     }
-    
-    public function unsubscribe(User $user)
+
+    // Отписаться
+    public function unsubscribe(Request $request, User $user)
     {
-        auth()->user()->followings()->detach($user->id);
-        
-        return redirect()->back();
+        $request->user()->followings()->detach($user->id);
+        return back()->with('success', 'Подписка отменена.');
     }
-    
+
+    // Проверить подписку (если нужно в компоненте)
     public function check(User $user)
     {
-       return Inertia::render('UserProfile', [
-    'isFollowing' => auth()->user()->isFollowing($user)
-  ]);
+        return Inertia::render('UserProfile', [
+            'isFollowing' => auth()->user()->isFollowing($user),
+        ]);
     }
 }

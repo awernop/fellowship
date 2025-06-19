@@ -28,10 +28,10 @@ export default function SideNavigation() {
                     </Link>
                 </div>
                 {user ? (
-                    <div className="mb-3 w-full">
+                    <div className="mb-3 w-full ">
                         <Dropdown>
                             <Dropdown.Trigger>
-                                    <div className="flex items-center justify-between rounded-xl shadow-lg border w-full bg-[#F8F7FB] opacity-80 cursor-pointer transition duration-300 ease-in-out hover:bg-gray-50 px-3 py-4">
+                                    <div className="flex items-center justify-between rounded-xl border w-full bg-[#F8F7FB] opacity-80 cursor-pointer transition duration-300 ease-in-out hover:bg-gray-50 px-3 py-4">
                                         <button
                                             type="button"
                                             className="inline-flex items-center rounded-md border border-transparent text-[14px] font-medium leading-4 text-gray-400 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
@@ -112,7 +112,7 @@ export default function SideNavigation() {
                         <div className="mb-3 w-full">
                             <Dropdown>
                                 <Dropdown.Trigger>
-                                    <div className="flex items-center justify-between rounded-xl border w-full bg-[#F8F7FB] opacity-80 transition duration-300 ease-in-out shadow-lg cursor-pointer hover:bg-gray-50 px-3 py-4">
+                                    <div className="flex items-center justify-between rounded-xl border w-full bg-[#F8F7FB] opacity-80 cursor-pointer hover:bg-gray-50 px-3 py-4 shadow-[1px_1px_3px_rgba(163,177,198,0.3),-5px_-5px_10px_rgba(255,255,255,0.8)] hover:shadow-[1px_1px_6px_rgba(163,177,198,0.5),-5px_-5px_10px_rgba(255,255,255,0.8)] transition-all duration-200">
                                         <button
                                             type="button"
                                             className="inline-flex items-center rounded-md border border-transparent text-[14px] font-medium leading-4 text-[#83858d] transition duration-150 ease-in-out focus:outline-none"
@@ -138,7 +138,8 @@ export default function SideNavigation() {
                     )
 
                 }
-                <Link href={user ? "/dashboard" : "/"} className={`flex items-center gap-3 w-full px-4 py-2 text-start text-[14px] font-medium rounded-xl leading-5 transition duration-150 ease-in-out focus:outline-none cursor-pointer ${isActive("dashboard") || isActive("posts.welcome") ? "bg-night text-white hover:bg-[#363e4f] focus:bg-[#363e4f]" : "text-[#6F7275] hover:bg-[#F0EDFF] focus:bg-[#F0EDFF]"
+                <Link href={user ? "/dashboard" : "/"} className={`flex items-center gap-3 w-full px-4 py-2 text-start text-[14px] font-medium rounded-xl leading-5 ease-in-out focus:outline-none cursor-pointer
+              transition-all duration-200 ${isActive("dashboard") || isActive("posts.welcome") ? "bg-night text-white hover:bg-night focus:bg-night" : "text-[#6F7275] hover:bg-[#F0EDFF] focus:bg-[#F0EDFF]"
                     }`}>
                     <svg width="18" height="18" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.5 12H10C11.1046 12 12 12.8954 12 14V18C12 19.1046 12.8954 20 14 20H16.5C17.6046 20 18.5 19.1046 18.5 18V8.07037C18.5 7.40166 18.1658 6.7772 17.6094 6.40627L10.6417 1.76115C9.95376 1.3025 9.05447 1.31449 8.37896 1.79132L1.84663 6.40238C1.31573 6.77713 1 7.38647 1 8.03631V18C1 19.1046 1.89543 20 3 20H5.5C6.60457 20 7.5 19.1046 7.5 18V14C7.5 12.8954 8.39543 12 9.5 12Z" stroke-width="1.5" stroke-linecap="round"

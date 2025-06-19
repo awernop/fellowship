@@ -50,27 +50,27 @@ export default function MyReports() {
         <AuthenticatedLayout>
             <Head title={`Мои отклики на посты`} />
             <div className="max-w-7xlmy-6 px-4 flex flex-col gap-3">
-                <div className="py-8 w-full bg-white border rounded-xl sm:px-6 lg:px-8">
-                    <div className="flex items-center gap-5">
-                        {profileUser?.path_img && (
-                            <img
-                                src={`/images/${profileUser.path_img}`}
-                                alt="user pfp"
-                                className="w-[70px] mb-1 rounded-lg"
-                            />
-                        )}
-                        <div className="w-full flex items-center justify-between">
-                            <div className="flex flex-col mb-2">
-                                <span className="text-[22px] font-semibold select-none text-[#57595C]">
-                                    {profileUser.username}
-                                </span>
-                                <span className="text-[15px] mt-[-4px] font-medium select-none text-gray-500">
-                                    @{profileUser.login}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div className="py-8 w-full sm:px-6 lg:px-8 bg-gray-50 rounded-xl shadow-[1px_1px_16px_rgba(163,177,198,0.3),-8px_-8px_16px_rgba(255,255,255,0.3)]">
+                                    <div className="flex items-center gap-5">
+                                        {currentUser?.path_img && (
+                                            <img
+                                                src={`/images/${currentUser.path_img}`}
+                                                alt="user pfp"
+                                                className="w-[70px] mb-1 rounded-lg"
+                                            />
+                                        )}
+                                        <div className="w-full flex items-center justify-between">
+                                            <div className="flex flex-col mb-2">
+                                                <span className="text-[22px] font-semibold select-none text-[#57595C]">
+                                                    {currentUser.username}
+                                                </span>
+                                                <span className="text-[15px] mt-[-4px] select-none text-[#57595C] font-medium opacity-60">
+                                                    @{currentUser.login}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                 <div className="flex flex-col lg:flex-row gap-3">
                     {/* Блок постов */}
                     {reports.map((item) => {

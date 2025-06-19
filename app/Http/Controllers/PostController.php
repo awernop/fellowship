@@ -62,7 +62,12 @@ class PostController extends Controller
 
     public function challengesGuest()
     {
-        $posts=Post::with('tags', 'user:id,username,login,path_img')->latest()->get();
+        $posts=Post::with('tags', 'user:id,username,login,path_img')
+        ->latest()
+        ->get()
+        ->each(function ($post) {
+                $post->created_at_format = \Carbon\Carbon::parse($post->created_at)->translatedFormat('d F y');
+            });
 
         return Inertia::render('Challenges', [
             'posts' => $posts
@@ -209,7 +214,7 @@ class PostController extends Controller
      public function getPost(Post $post)
     {
         return Inertia::render('PostPage', [
-            'post' => $post->load('user')
+            'post' => $post->load('user', 'tags')
         ]);
     }
 }

@@ -80,10 +80,10 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/users/{user}/subscribe', [SubscriptionController::class, 'subscribe']);
     Route::post('/users/{user}/unsubscribe', [SubscriptionController::class, 'unsubscribe']);
-    Route::get('/users/{user}/check-subscription', [SubscriptionController::class, 'check']);
+    Route::get('/users/{user}/check', [SubscriptionController::class, 'check']);
 });
 
 Route::middleware((Admin::class))->group(function(){

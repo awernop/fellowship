@@ -54,7 +54,7 @@ export const Post = ({ post }) => {
         });
     };
     return (
-        <div className="flex flex-col h-[590px] border w-[32%] bg-white rounded-xl shadow-sm transition-all duration-300 cursor-pointer m-1"
+        <div className="flex flex-col h-[590px] w-[32%] bg-gradient-to-b from-white to-gray-50 rounded-xl transition-all duration-300 cursor-pointer m-1 shadow-[1px_1px_3px_rgba(163,177,198,0.2),-8px_-8px_10px_rgba(255,255,255,0.2)]"
         >
             <div className='p-3 pt-4 h-full flex flex-col justify-between'>
                 <div>
@@ -66,13 +66,13 @@ export const Post = ({ post }) => {
                                     <img
                                         src={`/images/${post.user.path_img}`}
                                         alt="user pfp"
-                                        className="w-[35px] rounded-md object-cover"
+                                        className="w-[35px] rounded-full object-cover"
                                     />
                                 </div>
                             )}
                             <div>
                                 <p className='text-[15px] font-semibold text-[#57595C]'>{post.user.username}</p>
-                                <p className='text-[14px] mt-[-4px] text-[#57595C] font-medium opacity-60'>@{post.user.login}</p>
+                                <p className='text-[14px] mt-[-4px] text-gray-500 font-regular opacity-80'>@{post.user.login}</p>
                             </div>
                         </div>
                     </a>
@@ -134,24 +134,31 @@ export const Post = ({ post }) => {
 
                 >
                     {post?.path_img && (
-                        <div className='relative w-full ' onClick={() => {
-                            handlePostClick(post, 'info');
-                            setIsModalPostOpen(true)
-                        }}>
-                            <img
-                                src={`/images/${post.path_img}`}
-                                alt="Work image"
-                                className='rounded-xl'
-                            />
-                        </div>
+                                    <div className='relative' onClick={() => {
+                                        handlePostClick(post, 'info');
+                                        setIsModalPostOpen(true)
+                                    }}>
+                                        <div
+                                            className='rounded-lg border'
+                                            style={{
+                                                backgroundImage: `url(/images/${post.path_img})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center',
+                                                backgroundRepeat: 'no-repeat',
+                                                width: '35vw',
+                                                height: '230px',
+                                                maxWidth: '100%',
+                                            }}>
+                                        </div>
+                                    </div>
 
-                    )}
-                    <div className='mt-3'>
+                                )}
+                    <div className='mt-2'>
                         <div >
-                            <p className='text-[24px] font-bold text-night pl-2'>{post.title}</p>
+                            <p className='text-[20px] font-bold text-night text-muted-foreground line-clamp-2 pl-3 mb-1'>{post.title}</p>
 
                         </div>
-                        <p className="text-[14px] font-normal text-muted-foreground pl-3 line-clamp-3">{post.preview}</p>
+                        <p className="text-[15px] text-gray-500 font-medium text-muted-foreground pl-3 line-clamp-3">{post.preview}</p>
 
                     </div>
 
@@ -164,9 +171,9 @@ export const Post = ({ post }) => {
                                 {post.tags.map((tag) => (
                                     <span
                                         key={tag.id}
-                                        className="px-3 py-1 bg-[#8F79E4] opacity-80 text-white text-[13px] font-medium rounded-full"
+                                        className="px-4 py-1 bg-[#ede6ff] opacity-80 text-[#715BC8] text-[13px] font-bold rounded-lg"
                                     >
-                                        #{tag.title}
+                                        {tag.title}
                                     </span>
                                 ))}
                             </div>

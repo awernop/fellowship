@@ -158,7 +158,7 @@ export default function Register() {
                                             onClick={() => toggleTag(tag.id)}
                                             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors 
                                     ${data.tags.includes(tag.id)
-                                                    ? 'bg-flower text-white'
+                                                    ? 'bg-gradient-to-r from-[#8F79E4] to-[#7D64DD] text-white'
                                                     : 'bg-gray-200 text-gray-500 hover:bg-gray-300'
                                                 }`}
                                         >

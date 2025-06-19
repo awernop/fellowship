@@ -91,7 +91,7 @@ class ReportController extends Controller
 
         $posts = Post::with('tags', 'user:id,username,login,path_img')->get();
     
-    $reports = Report::with(['user:id,username,login', 'post'])
+    $reports = Report::with(['user:id,username,login,path_img', 'post'])
         ->whereHas('post', function($query) use ($user) {
             $query->where('user_id', $user->id);
         })
