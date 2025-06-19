@@ -7,7 +7,6 @@ import { ThemsOnWelcome } from '@/Components/ThemsOnWelcome';
 
 
 export default function Welcome({ posts }) {
-    const [displayFormat, setDisplayFormat] = useState('cards');
 
     return (
         <AuthenticatedLayout>
@@ -56,7 +55,7 @@ export default function Welcome({ posts }) {
                                                                 ))
                                                             ) : (
                                                                 <div className="w-full text-center text-[14px] select-none opacity-40 py-10 text-[#6F7275] font-medium">
-                                                                    {searchQuery ? "По вашему запросу ничего не найдено" : "Нет доступных постов"}
+                                                                    
                                                                 </div>
                                                             )}
                                                         </div>

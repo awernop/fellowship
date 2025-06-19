@@ -132,14 +132,6 @@ export const PostHorizontal = ({ post }) => {
                                                     </svg>
                                                 </button>
                                             </Dropdown.Trigger>
-        
-                                            <Dropdown.Content>
-                                                <Dropdown.Link onClick={() => {
-                                                    handlePostClick(post, 'claim');
-                                                }}>
-                                                    Пожаловаться на пост
-                                                </Dropdown.Link>
-                                            </Dropdown.Content>
                                         </Dropdown>
                                     )
                             )

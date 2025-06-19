@@ -87,7 +87,7 @@ export default function Create() {
 
                     <label
                       htmlFor="path_img"
-                      className="flex flex-col items-center w-full py-[50px] px-[35px] rounded-2xl cursor-pointer text-center text-[15px] font-semibold transition duration-300 ease-in-out relative overflow-hidden"
+                      className="flex flex-col items-center w-full py-[50px] px-[35px] rounded-md cursor-pointer text-center text-[15px] font-semibold transition duration-300 ease-in-out relative overflow-hidden"
                       style={{
                         backgroundImage: image
                           ? `url(${image})`
@@ -132,7 +132,7 @@ export default function Create() {
 
                 <div className="flex flex-col items-start gap-4 mt-[14px]">
                   <div>
-                    <InputLabel htmlFor="title" value="Заголовок" className='font-medium text-[14px] leading-103 text-[#696969]' />
+                    <InputLabel htmlFor="title" value="Заголовок" className='font-medium text-[14px] leading-103 text-[#696969] mb-2 ' />
 
                     <TextInput
                       id="title"
@@ -150,7 +150,7 @@ export default function Create() {
                   </div>
 
                   <div>
-                    <InputLabel htmlFor="preview" value="Превью" className='font-medium text-[14px] leading-103 text-[#696969]' />
+                    <InputLabel htmlFor="preview" value="Превью" className='font-medium text-[14px] leading-103 text-[#696969] mb-2 ' />
 
                     <TextInput
                       id="preview"
@@ -168,7 +168,7 @@ export default function Create() {
                   </div>
 
                   <div>
-                    <InputLabel htmlFor="contact" value="Ссылка на телеграм" className='font-medium text-[14px] leading-103 text-[#696969]' />
+                    <InputLabel htmlFor="contact" value="Ссылка на телеграм" className='font-medium text-[14px] leading-103 text-[#696969] mb-2 ' />
 
                     <TextInput
                       id="contact"
@@ -189,7 +189,7 @@ export default function Create() {
               </div>
               <div>
                 <div className="mt-4">
-                  <InputLabel htmlFor="description" value="Описание" className='font-medium text-[14px] leading-103 text-[#696969] mt-[14px]' />
+                  <InputLabel htmlFor="description" value="Описание" className='font-medium text-[14px] leading-103 text-[#696969] mt-[14px] mb-2 ' />
 
                   <Textarea
                     id="description"
@@ -242,7 +242,7 @@ export default function Create() {
                   <PrimaryButton className="me-2 px-7" disabled={processing}>
                     Создать пост
                   </PrimaryButton>
-                  <a href="dashboard" className="`inline-flex items-center rounded-xl border border-gray-200 py-[10px] px-10 text-[14px] font-semibold text-night transition duration-300 ease-in-out hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-2">Отмена</a>
+                  <a href="dashboard" className="`inline-flex items-center rounded-md border border-gray-200 py-[10px] px-10 text-[14px] font-semibold text-night transition duration-300 ease-in-out hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-2">Отмена</a>
                 </div>
               </div>
             </div>

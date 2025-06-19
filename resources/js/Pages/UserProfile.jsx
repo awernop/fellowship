@@ -6,6 +6,7 @@ import ModalPost from '@/Components/ModalPost';
 import { Post } from '@/Components/Post';
 import { PostHorizontal } from '@/Components/PostHorizontal';
 import { FollowButton } from '@/Components/FollowButton';
+import image from '../../../public/images/thematicjpg.jpg';
 
 export default function UserProfile() {
     const { user, posts } = usePage().props;
@@ -31,13 +32,20 @@ export default function UserProfile() {
         <AuthenticatedLayout>
             <Head title={`Профиль ${user.username}`} />
             <div className="max-w-7xlmy-6 px-4 flex flex-col gap-3">
-                <div className="py-8 w-full sm:px-6 lg:px-8 bg-gray-50 rounded-xl shadow-[1px_1px_16px_rgba(163,177,198,0.3),-8px_-8px_16px_rgba(255,255,255,0.3)]">
-                    <div className="flex items-center gap-5">
+                <div className="w-full bg-gray-50 rounded-xl shadow-[1px_1px_16px_rgba(163,177,198,0.3),-8px_-8px_16px_rgba(255,255,255,0.3)]">
+                    <div className='w-full rounded-t-md p-[80px] '
+                        style={{
+                            backgroundImage: `url(${image})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                        }}>
+                    </div>
+                    <div className="flex items-end gap-5 pb-8 mt-[-30px] sm:px-6 lg:px-8">
                         {profileUser?.path_img && (
                             <img
                                 src={`/images/${profileUser.path_img}`}
                                 alt="user pfp"
-                                className="w-[70px] mb-1 rounded-lg"
+                                className="w-[100px] mb-1 rounded-full border-4 border-gray-50"
                             />
                         )}
                         <div className="w-full flex items-center justify-between">
@@ -127,21 +135,27 @@ export default function UserProfile() {
                                 </div>
                             ) : (
                                 <div className="flex flex-col gap-3">
-                                    {posts.map((item) => (
-                                        <PostHorizontal post={item} key={item.id} />
-                                    ))}
+                                    {filteredPosts.length > 0 ? (
+                                        filteredPosts.map((item) => (
+                                            <PostHorizontal post={item} key={item.id} />
+                                        ))
+                                    ) : (
+                                        <div className="w-full text-center text-[14px] select-none opacity-40 py-10 text-[#6F7275] font-medium">
+                                            {searchQuery ? "По вашему запросу ничего не найдено" : "Нет доступных постов"}
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
                     </div>
                     {/* Блок тегов */}
                     <div className="w-full lg:w-1/3 max-w-xs">
-                        {profileUser?.description ? (
+                        {profileUser.description && (
                             <div className="flex flex-col py-5 bg-gray-50 rounded-xl shadow-[1px_1px_16px_rgba(163,177,198,0.3),-8px_-8px_16px_rgba(255,255,255,0.3)] mb-3 sm:px-6 lg:px-8">
                                 <p className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-3">Описание профиля</p>
                                 <p>{profileUser.description}</p>
                             </div>
-                        ) : (<p></p>)
+                        )
                         }
                         <div className="flex flex-col py-5 bg-gray-50 rounded-xl shadow-[1px_1px_16px_rgba(163,177,198,0.3),-8px_-8px_16px_rgba(255,255,255,0.3)] sm:px-6 lg:px-8">
                             <p className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-3">Теги пользователя</p>

@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import { Head, usePage } from '@inertiajs/react';
 import ModalReport from '@/Components/ModalReport';
 import ModalPost from '@/Components/ModalPost';
-import { Post } from '@/Components/Post';
 import { PostHorizontal } from '@/Components/PostHorizontal';
 import { FollowButton } from '@/Components/FollowButton';
+import { ArchivedPost } from '@/Components/ArchivedPost';
+import { ArchivedPostHorizontal } from '@/Components/ArchivedPostHorizontal';
 
 export default function UserProfile() {
     const { user, posts } = usePage().props;
@@ -37,7 +38,7 @@ export default function UserProfile() {
                             <img
                                 src={`/images/${profileUser.path_img}`}
                                 alt="user pfp"
-                                className="w-[70px] mb-1 rounded-lg"
+                                className="w-[70px] mb-1 rounded-full"
                             />
                         )}
                         <div className="w-full flex items-center justify-between">
@@ -117,7 +118,7 @@ export default function UserProfile() {
                                 <div className="flex flex-wrap gap-1">
                                     {filteredPosts.length > 0 ? (
                                         filteredPosts.map((item) => (
-                                            <Post post={item} key={item.id} />
+                                            <ArchivedPost post={item} key={item.id} />
                                         ))
                                     ) : (
                                         <div className="w-full text-center text-[14px] select-none opacity-40 py-10 text-[#6F7275] font-medium">
@@ -129,7 +130,7 @@ export default function UserProfile() {
                                 <div className="flex flex-col gap-3">
                                     {filteredPosts.length > 0 ? (
                                         filteredPosts.map((item) => (
-                                            <PostHorizontal post={item} key={item.id} />
+                                            <ArchivedPostHorizontal post={item} key={item.id} />
                                         ))
                                     ) : (
                                         <div className="w-full text-center text-[14px] select-none opacity-40 py-10 text-[#6F7275] font-medium">

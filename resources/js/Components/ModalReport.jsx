@@ -3,6 +3,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import { Textarea } from '@headlessui/react';
 
 export default function ModalReport({ post_id, onClose }) {
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -46,27 +47,29 @@ export default function ModalReport({ post_id, onClose }) {
             }}
             className="text-gray-500 hover:text-gray-700 text-2xl"
           >
-            &times;
+            ✕
           </button>
         </div>
 
         <form onSubmit={submit}>
           <div className="mb-4">
-            <InputLabel htmlFor="message" value="Расскажите кратко о себе и своей идее" />
-            <TextInput
-              id="message"
-              name="message"
-              value={data.message}
-              className="mt-1 block w-full"
-              autoComplete="off"
-              isFocused={true}
-              onChange={(e) => setData('message', e.target.value)}
-            />
+            <InputLabel htmlFor="message" value="Расскажите кратко о себе и своей идее" className='text-[#696969]'/>
+            <Textarea
+                                id="message"
+                                name="message"
+                                value={data.message}
+                                className="w-full h-[120px] rounded-md bg-gray-100 border-transparent  focus:border-[#8F79E4] transition duration-300 ease-in-out text-[15px]"
+                                autoComplete="message"
+                                placeholder="Моя идея это..."
+                                isFocused={true}
+                                onChange={(e) => setData('message', e.target.value)}
+                                required
+                              />
             <InputError message={errors.message} className="mt-2" />
           </div>
 
           <div>
-            <InputLabel htmlFor="contact" value="Ссылка на телеграм" className='font-medium text-[14px] leading-103 text-[#696969]' />
+            <InputLabel htmlFor="contact" value="Ссылка на телеграм" className='text-[14px] leading-103 text-[#696969]' />
 
             <TextInput
               id="contact"

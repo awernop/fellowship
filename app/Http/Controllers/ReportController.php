@@ -64,7 +64,7 @@ class ReportController extends Controller
         $reports = Report::where('user_id', $userId)
                 ->with(['user' => function($query) {
                     $query->select('id', 'username', 'login', 'path_img');
-                }])->with('post:id,title,preview')
+                }])->with('post:id,title,preview,contact')
                 ->get();
 
         return Inertia::render('MyReports', [

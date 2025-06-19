@@ -25,7 +25,7 @@ export const FollowButton = ({ userId, initialFollowing }) => {
     <button 
       onClick={handleFollow}
       disabled={isLoading}
-      className={`inline-flex justify-center items-center w-[20%] py-2 border border-transparent rounded-md font-semibold text-[14px] transition ease-in-out duration-350 mt-5 ${
+      className={`inline-flex justify-center items-center w-[20%] py-2 border border-transparent rounded-md font-semibold text-[14px] transition ease-in-out duration-350 ${
         isFollowing 
           ? 'bg-gray-200 text-gray-800 hover:bg-gray-300' 
           : 'bg-night text-white hover:bg-[#37393F]'

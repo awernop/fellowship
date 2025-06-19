@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Head, usePage, router } from '@inertiajs/react';
 import { Post } from '@/Components/Post';
 import { PostHorizontal } from '@/Components/PostHorizontal';
+import image from '../../../public/images/createpost.jpg';
 
 export default function Dashboard({ }) {
     const [displayFormat, setDisplayFormat] = useState('cards');
@@ -38,13 +39,15 @@ export default function Dashboard({ }) {
                                 <span className='text-[20px] font-semibold text-[#57595C]'>Твои посты</span>
                                 <div className='mt-4 flex items-center'>
                                     <div>
-                                        <a className="inline-flex items-center px-[130px] py-8 bg-gray-100 border-gray-200 rounded-lg font-semibold text-[14px] text-white hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-200 focus:outline-none transition ease-in-out duration-500"
+                                        <div>
+                                        <a className="inline-flex items-center bg-gray-100 px-[130px] py-8 border border-gray-200 rounded-lg font-semibold text-[14px] text-white hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-200 focus:outline-none transition ease-in-out duration-500"
                                             href={route('posts.create')}>
                                             <svg width="40" height="40" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M19.7916 13.5416H13.5416V19.7916H11.4583V13.5416H5.20825V11.4583H11.4583V5.20831H13.5416V11.4583H19.7916V13.5416Z" fill="#2A303E" />
+                                                <path d="M19.7916 13.5416H13.5416V19.7916H11.4583V13.5416H5.20825V11.4583H11.4583V5.20831H13.5416V11.4583H19.7916V13.5416Z" fill="#37393F" />
                                             </svg>
                                         </a>
-                                        <p className='text-[#57595C] font-medium'>Новый пост</p>
+                                    </div>
+                                    <p className='text-[#57595C] font-medium'>Новый пост</p>
                                     </div>
                                     <div className="relative w-full flex items-center gap-5 ml-7">
                                         {userPosts

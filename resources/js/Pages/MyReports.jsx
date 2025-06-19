@@ -9,13 +9,14 @@ export default function MyReports() {
         switch (approved) {
             case 1:
                 return {
-                    bg: 'bg-green-50',
+                    bg: 'bg-violet-50',
                     border: 'border-green-200',
-                    text: 'text-green-500',
+                    text: 'text-flower',
                     icon: (
-                        <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                        // <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        //     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        // </svg>
+                        <p className="text-[14px]">✔️</p>
                     ),
                     label: 'Принят'
                 };
@@ -25,21 +26,23 @@ export default function MyReports() {
                     border: 'border-red-200',
                     text: 'text-red-500',
                     icon: (
-                        <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                        // <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        //     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        // </svg>
+                        <p className="text-[14px]">❌</p>
                     ),
                     label: 'Отклонён'
                 };
             default:
                 return {
-                    bg: 'bg-[#eeedff]',
+                    bg: 'bg-yellow-50',
                     border: 'border-flower',
-                    text: 'text-flower',
+                    text: 'text-yellow-500',
                     icon: (
-                        <svg className="w-5 h-5 text-flower" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        // <svg className="w-5 h-5 text-flower" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        //     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        // </svg>
+                        <p className="text-[20px]">⏰</p>
                     ),
                     label: 'Ожидает ответа'
                 };
@@ -56,7 +59,7 @@ export default function MyReports() {
                                             <img
                                                 src={`/images/${currentUser.path_img}`}
                                                 alt="user pfp"
-                                                className="w-[70px] mb-1 rounded-lg"
+                                                className="w-[70px] mb-1 rounded-full"
                                             />
                                         )}
                                         <div className="w-full flex items-center justify-between">
@@ -76,27 +79,55 @@ export default function MyReports() {
                     {reports.map((item) => {
                         const status = getStatusStyles(item.approved);
                         return (
-                            <div key={item.id} className="flex flex-col p-4 border w-[360px] bg-white rounded-xl ">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-full">
-                                        <div className="bg-[#EEEDFF] p-2 pl-4 w-full rounded-md mb-4">
-                                            <p className="text-[14px] font-medium text-flower">{item.post.title}</p>
+                            <div key={item.id} className="flex flex-col justify-between p-4 w-[26vw] bg-white rounded-xl shadow-[1px_1px_3px_rgba(163,177,198,0.2),-8px_-8px_10px_rgba(255,255,255,0.2)]">
+                                <div>
+                                            <div className="border-l-2 border-flower p-2 pl-4 w-full mb-4">
+                                            <p className="text-[14px] font-semibold text-flower">{item.post.title}</p>
                                             <p className="text-[14px] font-normal text-flower">{item.post.preview}</p>
                                         </div>
-                                        <div className="">
-                                            <p className="text-[18px] mt-[-4px] font-semibold">{item.user.username} (это вы)</p>
-                                            <p className="text-[15px] mt-[-4px]">@{item.user.login}</p>
+                                        <a href={route('users.posts', { login: item.user.login })}>
+                                            <div className='flex items-center gap-2' onClick={(e) => { e.stopPropagation(); }}>
+                                                {item.user?.path_img && (
+                                                    <div>
+                                                        <img
+                                                            src={`/images/${item.user.path_img}`}
+                                                            alt="user pfp"
+                                                            className="w-[35px] rounded-full object-cover"
+                                                        />
+                                                    </div>
+                                                )}
+                                                <div>
+                                                    <p className='text-[15px] font-semibold text-[#57595C]'>{item.user.username} (это ты)</p>
+                                                    <p className='text-[14px] mt-[-4px] text-gray-500 font-regular opacity-80'>@{item.user.login}</p>
+                                                </div>
+                                                
+                                            </div>
+                                            {item.message ? (<p>{item.message}</p>) : (<p className="italic text-[14px] font-light text-gray-400">Пользователь не оставил сообщения</p>)}
+                                        </a>
                                         </div>
-                                        {item.message ? (<p>{item.message}</p>) : (<p className="italic text-[14px] font-light text-gray-400">Вы не оставили сообщения</p>)}
+                                <div className="flex items-center gap-3">
+                                    <div className="w-full h-full flex-col justify-between">
+                                        <div>
                                         <div className="mt-3 flex justify-between w-full items-center">
                                             <div className="flex justify-between items-start w-full">
-                                                <div className="flex items-center space-x-2">
-                                                    <span className={`inline-flex items-center px-3 py-1 rounded-md text-sm font-medium ${status.bg} ${status.text}`}>
-                                                        {status.icon}
-                                                        <span className="ml-1">{status.label}</span>
-                                                    </span>
+                                                <div className="flex flex-col items-start space-x-2">
+                                                    <div className="flex items-center gap-4">
+                                                        <span className={`inline-flex items-center px-4 py-2 rounded-md text-sm font-medium ${status.bg} ${status.text}`}>
+                                                            {status.icon}
+                                                            <span className="ml-1 text-[14px]">{status.label}</span>
+                                                        </span>
+                                                        {status.label === "Принят" && (
+                                                            <div className="bg-blue-500 flex items-center gap-2 py-2 px-4 rounded-md">
+                                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.4808 3.69164C16.6867 3.60496 16.9121 3.57507 17.1335 3.60507C17.355 3.63507 17.5643 3.72386 17.7397 3.86221C17.9152 4.00056 18.0503 4.1834 18.1311 4.39171C18.2119 4.60001 18.2354 4.82617 18.1991 5.04664L16.3091 16.5108C16.1258 17.6166 14.9125 18.2508 13.8983 17.7C13.05 17.2391 11.79 16.5291 10.6566 15.7883C10.09 15.4175 8.35414 14.23 8.56748 13.385C8.75081 12.6625 11.6675 9.94747 13.3341 8.3333C13.9883 7.69914 13.69 7.3333 12.9175 7.91664C10.9991 9.36497 7.91914 11.5675 6.90081 12.1875C6.00248 12.7341 5.53414 12.8275 4.97414 12.7341C3.95248 12.5641 3.00498 12.3008 2.23164 11.98C1.18664 11.5466 1.23748 10.11 2.23081 9.69164L16.4808 3.69164Z" fill="white" />
+                                                                </svg>
+                                                                <a href={`https://t.me/${item.post.contact.replace('@', '')}`} className="text-white text-[14px]">Связаться</a>
+                                                            </div>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
